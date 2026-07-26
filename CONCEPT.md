@@ -1,8 +1,8 @@
-# SysReceipt concept
+# CmdTrail concept
 
 ## One-line thesis
 
-SysReceipt records a bounded, capability-declared receipt of the observable
+CmdTrail records a bounded, capability-declared receipt of the observable
 filesystem, process, and network side effects caused by a command.
 
 ## Problem
@@ -43,12 +43,12 @@ return a compact receipt of observable effects and blind spots.**
 ## Proposed command contract
 
 ```text
-sysreceipt schema --brief --format json
-sysreceipt capabilities --format json
-sysreceipt record --out receipt.json -- npm install
-sysreceipt show receipt.json --summary --format json
-sysreceipt diff before.json after.json --format json
-sysreceipt verify receipt.json --format json
+cmdtrail schema --brief --format json
+cmdtrail capabilities --format json
+cmdtrail record --out receipt.json -- npm install
+cmdtrail show receipt.json --summary --format json
+cmdtrail diff before.json after.json --format json
+cmdtrail verify receipt.json --format json
 ```
 
 The `--` separator is mandatory before the recorded argument vector. Shell
@@ -56,7 +56,7 @@ interpretation happens only when explicitly requested.
 
 ## Capability model
 
-Before recording, SysReceipt reports coverage for:
+Before recording, CmdTrail reports coverage for:
 
 - process start, exec, exit, and parent relationships;
 - filesystem create, write, metadata change, rename, and delete;
@@ -85,7 +85,7 @@ Complete retained events are content-addressed and referenced by digest.
 A receipt includes:
 
 - source command, working directory, and redacted environment summary;
-- operating system, kernel, SysReceipt version, and backend;
+- operating system, kernel, CmdTrail version, and backend;
 - effective user identity and privilege class;
 - observation start/end and descendant policy;
 - capability matrix and known blind spots;
@@ -123,7 +123,7 @@ the public schema must not depend on one Linux API.
 
 ## Differentiation and defensibility
 
-SysReceipt translates noisy operating-system evidence into a stable, honest
+CmdTrail translates noisy operating-system evidence into a stable, honest
 agent contract. Its largest moat is technical: cross-backend normalization,
 coverage calibration, low-overhead capture, redaction, and a rigorous fixture
 suite for completeness claims.
@@ -146,6 +146,6 @@ suite for completeness claims.
 - Paths and endpoints can themselves contain sensitive information.
 - Cross-platform support may tempt the project to overstate equivalence.
 
-SysReceipt must earn trust through calibrated limitations. A partial receipt
+CmdTrail must earn trust through calibrated limitations. A partial receipt
 that says exactly what it missed is more useful than an unqualified claim of
 completeness.

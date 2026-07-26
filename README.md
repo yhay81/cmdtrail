@@ -1,16 +1,16 @@
-# SysReceipt
+# CmdTrail
 
 Structured receipts for the observable side effects of a command.
 
 > Status: research concept. System-wide tracing has platform-specific limits and the first release will not claim complete observation.
 
-SysReceipt runs or attaches to a command and records observable file, process, network, port, and resource effects in one bounded event model.
+CmdTrail runs or attaches to a command and records observable file, process, network, port, and resource effects in one bounded event model.
 
 ```bash
-sysreceipt record -- npm install
-sysreceipt show rcpt_01J... --fields files,processes,network
-sysreceipt diff rcpt_01J... rcpt_01K...
-sysreceipt verify rcpt_01J...
+cmdtrail record -- npm install
+cmdtrail show rcpt_01J... --fields files,processes,network
+cmdtrail diff rcpt_01J... rcpt_01K...
+cmdtrail verify rcpt_01J...
 ```
 
 ## Why
