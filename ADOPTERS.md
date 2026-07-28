@@ -5,6 +5,11 @@ maintainer-only testing, release downloads, and stars do not count as adoption.
 
 No independent adopter has been verified yet.
 
+The shortest reporting path is the public
+[adoption report form](https://github.com/yhay81/cmdtrail/issues/new?template=adoption_report.yml).
+Use a pull request instead when the evidence should be committed directly to
+this file.
+
 To share an adoption, open an issue or pull request with as much of the
 following as can be public:
 
