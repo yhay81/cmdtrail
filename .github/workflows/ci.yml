@@ -24,6 +24,21 @@ jobs:
         run: cargo fmt --check
       - name: Lints
         run: cargo clippy --all-targets --all-features --locked -- -D warnings
+      - name: Benchmark harness
+        shell: bash
+        run: |
+          bash -n benchmarks/run.sh
+          fixture="${RUNNER_TEMP}/cmdtrail-benchmark-smoke"
+          python3 benchmarks/generate_tree.py \
+            --files 4 --directories 2 --output "${fixture}" >"${fixture}.json"
+          jq -e '
+            .schema_version == "cmdtrail.benchmark-tree.v1"
+            and .files == 4
+            and .directories == 2
+            and .entries == 6
+            and (.content_sha256 | length == 64)
+          ' "${fixture}.json" >/dev/null
+          test "$(find "${fixture}" -type f | wc -l)" -eq 4
 
   audit:
     runs-on: ubuntu-latest

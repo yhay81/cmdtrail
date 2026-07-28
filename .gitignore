@@ -3,4 +3,5 @@ __pycache__/
 *.py[cod]
 *.receipt.json
 *.events.ndjson
+/benchmark-results*.json
 .DS_Store
