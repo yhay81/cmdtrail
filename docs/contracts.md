@@ -102,6 +102,11 @@ digests, and hash it with domain `events`. Compare with `events_sha256`.
 Verification succeeds only when the schema, every event, the chain head, event
 array, receipt digest, and derived ID all pass.
 
+The digest-pinned [v0.1 compatibility
+corpus](../tests/fixtures/contracts/README.md) freezes a representative receipt
+containing every v0.1 event variant. Its independent Python verifier implements
+the algorithm above without importing or executing CmdTrail.
+
 ## Semantic cautions
 
 Integrity validation does not authenticate the creator and does not raise a

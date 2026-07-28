@@ -23,7 +23,7 @@ published measurements. Feature count is not a release criterion.
     and event drops;
   - direct-child exit, signal, timeout, interruption, and spawn failure;
   - supported redaction patterns and known escape classes.
-- Add golden receipt compatibility tests and an external verifier fixture.
+- [x] Add golden receipt compatibility tests and an external verifier fixture.
 - Publish benchmark methodology and raw results for 1k, 10k, and 100k-entry
   trees.
 - Evaluate opt-in Linux native tracing without changing the public receipt

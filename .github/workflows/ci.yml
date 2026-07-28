@@ -59,6 +59,14 @@ jobs:
           rustup default stable
       - name: Package
         run: cargo package --locked --allow-dirty
+      - name: Receipt compatibility corpus
+        shell: bash
+        run: |
+          jq -e . tests/fixtures/contracts/v0.1/manifest.json >/dev/null
+          jq -e . tests/fixtures/contracts/v0.1/portable.receipt.json >/dev/null
+          python3 tests/fixtures/contracts/v0.1/verify_golden.py \
+            tests/fixtures/contracts/v0.1/portable.receipt.json
+          python3 tests/fixtures/contracts/v0.1/test_verify_golden.py
       - name: Machine contracts and completions
         shell: bash
         run: |

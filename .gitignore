@@ -1,4 +1,6 @@
 /target/
+__pycache__/
+*.py[cod]
 *.receipt.json
 *.events.ndjson
 .DS_Store

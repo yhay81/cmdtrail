@@ -1,0 +1,176 @@
+{
+  "schema_version": "cmdtrail.receipt.v1",
+  "tool_version": "0.1.0",
+  "receipt_id": "ct_a8f1e74a68662fe9068237c0",
+  "receipt_sha256": "a8f1e74a68662fe9068237c09185f215491445c9f3c0c82ed6a6fcd4cfd94cb0",
+  "platform": {
+    "os": "linux",
+    "architecture": "x86_64",
+    "family": "unix"
+  },
+  "command": {
+    "executable_display": "fixture-tool",
+    "executable_sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+    "argument_displays": [
+      "--write",
+      "result.txt"
+    ],
+    "argument_sha256": [
+      "2222222222222222222222222222222222222222222222222222222222222222",
+      "3333333333333333333333333333333333333333333333333333333333333333"
+    ],
+    "command_sha256": "4444444444444444444444444444444444444444444444444444444444444444",
+    "environment_captured": false,
+    "outcome": {
+      "state": "exited",
+      "exit_code": 0,
+      "signal": null,
+      "success": true,
+      "spawn_error_kind": null
+    }
+  },
+  "observation": {
+    "backend": "portable_pre_post_snapshot",
+    "started_at_unix_ms": 1700000000000,
+    "finished_at_unix_ms": 1700000000123,
+    "duration_ms": 123,
+    "working_directory_handle": "path_aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "working_directory_display": "fixture",
+    "coverage": "partial",
+    "known_blind_spots": [
+      "pre/post snapshots cannot observe transient effects"
+    ]
+  },
+  "capabilities": [
+    {
+      "name": "direct_process_lifecycle",
+      "level": "full",
+      "backend": "std_process",
+      "reason": "records the direct child outcome"
+    },
+    {
+      "name": "persistent_filesystem_delta",
+      "level": "partial",
+      "backend": "portable_pre_post_snapshot",
+      "reason": "records bounded persistent deltas"
+    }
+  ],
+  "limits": {
+    "max_entries_per_snapshot": 1000,
+    "max_events": 100,
+    "max_file_hash_bytes": 1048576,
+    "max_total_hash_bytes_per_snapshot": 67108864,
+    "command_timeout_ms": null
+  },
+  "roots": [
+    {
+      "root_id": "root_0000",
+      "path_handle": "path_bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "display_name": "fixture",
+      "before": {
+        "retained_entries": 1,
+        "scanned_entries": 1,
+        "hashed_files": 0,
+        "hashed_bytes": 0,
+        "skipped_hashes": 0,
+        "traversal_errors": 0,
+        "error_classes": {},
+        "truncated": false,
+        "omitted_count_known": true
+      },
+      "after": {
+        "retained_entries": 2,
+        "scanned_entries": 2,
+        "hashed_files": 1,
+        "hashed_bytes": 6,
+        "skipped_hashes": 0,
+        "traversal_errors": 0,
+        "error_classes": {},
+        "truncated": false,
+        "omitted_count_known": true
+      }
+    }
+  ],
+  "events": [
+    {
+      "sequence": 0,
+      "observed_at_unix_ms": 1700000000001,
+      "previous_event_sha256": null,
+      "event": {
+        "type": "command_requested",
+        "details": {
+          "executable_sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+          "command_sha256": "4444444444444444444444444444444444444444444444444444444444444444"
+        }
+      },
+      "event_sha256": "722fcd50a907821c3099e6f4a7048ee6dfb6bd03eb6a0e952c9b609866df8e4b"
+    },
+    {
+      "sequence": 1,
+      "observed_at_unix_ms": 1700000000100,
+      "previous_event_sha256": "722fcd50a907821c3099e6f4a7048ee6dfb6bd03eb6a0e952c9b609866df8e4b",
+      "event": {
+        "type": "command_finished",
+        "details": {
+          "state": "exited",
+          "exit_code": 0,
+          "signal": null,
+          "success": true,
+          "spawn_error_kind": null
+        }
+      },
+      "event_sha256": "28acda8976e1431b7ee91ae1e8195656a06216f62d9fb78229018984704e60ee"
+    },
+    {
+      "sequence": 2,
+      "observed_at_unix_ms": 1700000000123,
+      "previous_event_sha256": "28acda8976e1431b7ee91ae1e8195656a06216f62d9fb78229018984704e60ee",
+      "event": {
+        "type": "file_effect",
+        "details": {
+          "root_id": "root_0000",
+          "path_handle": "path_cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+          "display_path": "result.txt",
+          "effect": "created",
+          "before": null,
+          "after": {
+            "kind": "file",
+            "size_bytes": "6",
+            "modified_at_unix_ns": "1700000000100000000",
+            "readonly": false,
+            "unix_mode": 420,
+            "content_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+            "content_hash_state": "hashed",
+            "symlink_target_sha256": null
+          }
+        }
+      },
+      "event_sha256": "27d9aa387b36e4027c87994e152ab33792f11ea8c73d1c5b22cb8f58a4b1374c"
+    }
+  ],
+  "events_sha256": "9dab7baba2e6221adc749ab600867d4f1c09beabea36bb04f72ad31433ca4a47",
+  "event_chain_head_sha256": "27d9aa387b36e4027c87994e152ab33792f11ea8c73d1c5b22cb8f58a4b1374c",
+  "summary": {
+    "command_state": "exited",
+    "command_success": true,
+    "file_effect_counts": {
+      "created": 1
+    },
+    "retained_file_effects": 1,
+    "dropped_file_effects": 0,
+    "snapshot_truncated": false,
+    "traversal_errors": 0,
+    "observation_complete": false
+  },
+  "redaction": {
+    "mode": "relative_paths_with_sensitive_components_redacted",
+    "environment_values_captured": false,
+    "custom_secret_values_loaded": 0,
+    "redacted_arguments": 0,
+    "redacted_path_components": 0,
+    "sensitive_file_hashes_skipped": 0,
+    "limitations": [
+      "pattern-based redaction cannot identify arbitrary positional secrets"
+    ]
+  }
+}
