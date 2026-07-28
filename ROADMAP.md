@@ -24,8 +24,9 @@ published measurements. Feature count is not a release criterion.
   - direct-child exit, signal, timeout, interruption, and spawn failure;
   - supported redaction patterns and known escape classes.
 - [x] Add golden receipt compatibility tests and an external verifier fixture.
-- Publish benchmark methodology and raw results for 1k, 10k, and 100k-entry
-  trees.
+- [x] Publish deterministic 1k-file, 10k-file, and 100k-entry tree generation
+  plus weekly raw wall-time, memory, output-size, and integrity artifacts.
+- Calibrate p95 and regression thresholds from repeated hosted-runner results.
 - Evaluate opt-in Linux native tracing without changing the public receipt
   envelope.
 

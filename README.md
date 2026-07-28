@@ -170,6 +170,11 @@ The repository also publishes a digest-pinned
 [v0.1 receipt corpus](tests/fixtures/contracts/README.md) with twelve declared
 fail-closed mutations and a standard-library-only independent verifier.
 
+Performance observations use deterministic 1k-file, 10k-file, and 100k-entry
+trees. The [benchmark methodology](benchmarks/README.md) documents snapshot
+boundaries, raw measurements, integrity checks, and the distinction between the
+current baseline and future v1.0 regression thresholds.
+
 ## Commands
 
 | Command | Purpose |

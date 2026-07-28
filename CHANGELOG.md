@@ -10,6 +10,8 @@ All notable changes are documented here. CmdTrail follows
 - Digest-pinned `cmdtrail.receipt.v1` golden corpus, twelve fail-closed
   mutations, exact serialization checks, and an independent standard-library
   verifier.
+- Deterministic 1k-file, 10k-file, and 100k-entry performance trees with weekly
+  raw wall-time, memory, output-size, snapshot, and integrity artifacts.
 
 ### Planned
 
