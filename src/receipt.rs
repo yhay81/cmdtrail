@@ -4,6 +4,27 @@ use std::fs::{self, File, OpenOptions};
 use std::io::{Read, Write};
 use std::path::Path;
 
+/// Parses one bounded receipt document without performing file I/O.
+///
+/// # Errors
+///
+/// Returns an error when the input exceeds the receipt limit or is not valid
+/// strict `CmdTrail` JSON.
+pub fn parse_receipt_document(bytes: &[u8]) -> Result<Receipt, AppError> {
+    if u64::try_from(bytes.len()).unwrap_or(u64::MAX) > crate::MAX_RECEIPT_BYTES {
+        return Err(AppError::limit(
+            "receipt_too_large",
+            "the receipt exceeds the 64 MiB input limit",
+        ));
+    }
+    serde_json::from_slice(bytes).map_err(|_| {
+        AppError::io(
+            "receipt_parse_failed",
+            "the receipt is not valid strict CmdTrail JSON",
+        )
+    })
+}
+
 /// Reads one strict receipt without following data beyond the configured size bound.
 ///
 /// # Errors
@@ -37,12 +58,7 @@ pub fn read_receipt(path: &Path) -> Result<Receipt, AppError> {
             "the receipt exceeds the 64 MiB input limit",
         ));
     }
-    serde_json::from_slice(&bytes).map_err(|_| {
-        AppError::io(
-            "receipt_parse_failed",
-            "the receipt is not valid strict CmdTrail JSON",
-        )
-    })
+    parse_receipt_document(&bytes)
 }
 
 /// Writes a receipt to a newly created private file and never overwrites a path.

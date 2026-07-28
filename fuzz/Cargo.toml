@@ -1,0 +1,19 @@
+[package]
+name = "cmdtrail-fuzz"
+version = "0.0.0"
+publish = false
+edition = "2021"
+
+[package.metadata]
+cargo-fuzz = true
+
+[dependencies]
+cmdtrail = { path = ".." }
+libfuzzer-sys = "=0.4.13"
+
+[[bin]]
+name = "receipt_integrity"
+path = "fuzz_targets/receipt_integrity.rs"
+test = false
+doc = false
+bench = false

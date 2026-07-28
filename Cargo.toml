@@ -10,7 +10,7 @@ homepage = "https://github.com/yhay81/cmdtrail"
 readme = "README.md"
 keywords = ["cli", "agents", "observability", "audit", "receipts"]
 categories = ["command-line-utilities", "development-tools", "filesystem"]
-exclude = [".github/"]
+exclude = ["/.github/**", "/.clusterfuzzlite/**", "/.dockerignore", "/fuzz/**"]
 
 [dependencies]
 clap = { version = "4.6.4", features = ["derive"] }

@@ -36,6 +36,10 @@ cargo audit
 cargo package --locked --allow-dirty
 ```
 
+Receipt parsing and event-chain verification are continuously fuzzed. See
+[FUZZING.md](FUZZING.md) for the reproducible local command and crash-handling
+rules.
+
 ## Evidence requirements
 
 - New observation claims need a deterministic fixture and explicit degraded
