@@ -33,7 +33,8 @@ independent asset audit.
 
 ## Continuity
 
-The project currently has a single-maintainer risk. Before v1.0, either a second
-release-capable maintainer must be established or the v1.0 release notes must
-explicitly retain that risk with a tested repository and signing-key recovery
-procedure.
+The project currently has one repository owner and one release-capable
+maintainer. [MAINTAINER_CONTINUITY.md](MAINTAINER_CONTINUITY.md) records the
+unmitigated authority risks, fail-closed signing-key rotation, and a monthly
+public recovery drill. A green drill does not substitute for a second
+maintainer or restore private repository state.
