@@ -1,0 +1,104 @@
+{
+  "schema_version": "cmdtrail.receipt-corpus.v1",
+  "accepted": [
+    {
+      "path": "portable.receipt.json",
+      "sha256": "37b4638a7575e2b4d83af2c9b79dac8186ee6c179e216e4398ff16c9f26a8693"
+    }
+  ],
+  "rejections": [
+    {
+      "id": "unknown-root-field",
+      "class": "parse",
+      "operation": "add",
+      "pointer": "/unexpected",
+      "value": true
+    },
+    {
+      "id": "unknown-event-details-field",
+      "class": "parse",
+      "operation": "add",
+      "pointer": "/events/0/event/details/unexpected",
+      "value": true
+    },
+    {
+      "id": "unknown-entry-state-field",
+      "class": "parse",
+      "operation": "add",
+      "pointer": "/events/2/event/details/after/unexpected",
+      "value": true
+    },
+    {
+      "id": "unsupported-schema",
+      "class": "integrity",
+      "operation": "replace",
+      "pointer": "/schema_version",
+      "value": "cmdtrail.receipt.v2",
+      "expected_error": "unsupported_schema"
+    },
+    {
+      "id": "receipt-digest-tamper",
+      "class": "integrity",
+      "operation": "replace",
+      "pointer": "/receipt_sha256",
+      "value": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+      "expected_error": "receipt_digest_mismatch"
+    },
+    {
+      "id": "receipt-id-tamper",
+      "class": "integrity",
+      "operation": "replace",
+      "pointer": "/receipt_id",
+      "value": "ct_eeeeeeeeeeeeeeeeeeeeeeee",
+      "expected_error": "receipt_id_mismatch"
+    },
+    {
+      "id": "event-payload-tamper",
+      "class": "integrity",
+      "operation": "replace",
+      "pointer": "/events/0/observed_at_unix_ms",
+      "value": 1700000000002,
+      "expected_error": "event_chain_invalid"
+    },
+    {
+      "id": "event-digest-tamper",
+      "class": "integrity",
+      "operation": "replace",
+      "pointer": "/events/1/event_sha256",
+      "value": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+      "expected_error": "event_chain_invalid"
+    },
+    {
+      "id": "previous-link-tamper",
+      "class": "integrity",
+      "operation": "replace",
+      "pointer": "/events/2/previous_event_sha256",
+      "value": null,
+      "expected_error": "event_chain_invalid"
+    },
+    {
+      "id": "sequence-tamper",
+      "class": "integrity",
+      "operation": "replace",
+      "pointer": "/events/2/sequence",
+      "value": 3,
+      "expected_error": "event_chain_invalid"
+    },
+    {
+      "id": "events-aggregate-tamper",
+      "class": "integrity",
+      "operation": "replace",
+      "pointer": "/events_sha256",
+      "value": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+      "expected_error": "events_digest_mismatch"
+    },
+    {
+      "id": "chain-head-tamper",
+      "class": "integrity",
+      "operation": "replace",
+      "pointer": "/event_chain_head_sha256",
+      "value": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+      "expected_error": "event_chain_invalid"
+    }
+  ]
+}

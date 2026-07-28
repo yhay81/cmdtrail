@@ -5,6 +5,12 @@ All notable changes are documented here. CmdTrail follows
 
 ## [Unreleased]
 
+### Added
+
+- Digest-pinned `cmdtrail.receipt.v1` golden corpus, twelve fail-closed
+  mutations, exact serialization checks, and an independent standard-library
+  verifier.
+
 ### Planned
 
 - Calibrated native observation backends and published fixture coverage.

@@ -56,7 +56,10 @@ fn fixture_child() {
         "second" => {
             fs::write(root.join("second.txt"), b"second").expect("fixture should create");
         }
-        "sleep" => std::thread::sleep(Duration::from_secs(5)),
+        "sleep" => {
+            fs::write(root.join("child-ready"), b"ready").expect("fixture should signal readiness");
+            std::thread::sleep(Duration::from_secs(5));
+        }
         "fail" => std::process::exit(17),
         "noop" => {}
         other => panic!("unknown fixture mode: {other}"),
@@ -160,7 +163,11 @@ fn timeout_is_bounded_and_receipted() {
     let receipt = directory.path.join("timeout.receipt.json");
     let started = std::time::Instant::now();
     let output = run_record(&root, &receipt, "sleep", &["--timeout", "100ms"]);
-    assert!(output.status.success());
+    assert!(
+        output.status.success(),
+        "timed record failed: {}",
+        String::from_utf8_lossy(&output.stderr)
+    );
     assert!(started.elapsed() < Duration::from_secs(3));
     let parsed = read_json(&receipt);
     assert_eq!(parsed["command"]["outcome"]["state"], "timed_out");
@@ -177,7 +184,15 @@ fn interruption_is_receipted_and_marks_snapshot_incomplete() {
     let mut command = record_command(&root, &receipt, "sleep", &[]);
     command.stdout(Stdio::piped()).stderr(Stdio::piped());
     let child = command.spawn().expect("cmdtrail should spawn");
-    std::thread::sleep(Duration::from_millis(200));
+    let ready = root.join("child-ready");
+    let deadline = std::time::Instant::now() + Duration::from_secs(3);
+    while !ready.exists() {
+        assert!(
+            std::time::Instant::now() < deadline,
+            "fixture child did not signal readiness"
+        );
+        std::thread::sleep(Duration::from_millis(10));
+    }
     let signal = Command::new("kill")
         .arg("-INT")
         .arg(child.id().to_string())
@@ -185,7 +200,11 @@ fn interruption_is_receipted_and_marks_snapshot_incomplete() {
         .expect("kill should run");
     assert!(signal.success());
     let output = child.wait_with_output().expect("cmdtrail should finish");
-    assert!(output.status.success());
+    assert!(
+        output.status.success(),
+        "interrupted record failed: {}",
+        String::from_utf8_lossy(&output.stderr)
+    );
     let parsed = read_json(&receipt);
     assert_eq!(parsed["command"]["outcome"]["state"], "interrupted");
     assert_eq!(parsed["summary"]["snapshot_truncated"], true);
