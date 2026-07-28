@@ -27,12 +27,17 @@ protected `main` branch.
 
 6. The release workflow validates the tag, builds four native archives, runs
    tests, creates completions and machine contracts, generates checksums and a
-   CycloneDX SBOM, attaches GitHub attestations, and publishes the release.
+   CycloneDX SBOM, attaches GitHub attestations and downloadable
+   `.intoto.jsonl` provenance bundles, and publishes the release.
 7. Independently download every asset and verify:
 
    ```bash
    shasum -a 256 -c SHA256SUMS
    gh attestation verify <archive> --repo yhay81/cmdtrail
+   gh attestation verify <archive> \
+     --repo yhay81/cmdtrail \
+     --bundle <archive>.intoto.jsonl \
+     --signer-workflow yhay81/cmdtrail/.github/workflows/release.yml
    gh attestation verify <archive> \
      --repo yhay81/cmdtrail \
      --predicate-type https://cyclonedx.org/bom
