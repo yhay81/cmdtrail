@@ -21,8 +21,8 @@ protected `main` branch.
 5. Create and push a signed annotated tag:
 
    ```bash
-   git tag -s v0.2.0 -m "CmdTrail v0.2.0"
-   git push origin v0.2.0
+   git tag -s v0.3.0 -m "CmdTrail v0.3.0"
+   git push origin v0.3.0
    ```
 
 6. The release workflow validates the tag, builds four native archives, runs
