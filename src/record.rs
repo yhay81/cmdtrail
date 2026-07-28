@@ -368,14 +368,14 @@ fn run_command(
             Ok(None) => {}
             Err(_) => {
                 let kill_confirmed = child.kill().and_then(|()| child.wait()).is_ok();
-                let blind_spots = (!kill_confirmed)
-                    .then(|| {
-                        vec![
-                            "direct child termination could not be confirmed after a wait failure"
-                                .to_owned(),
-                        ]
-                    })
-                    .unwrap_or_default();
+                let blind_spots = if kill_confirmed {
+                    Vec::new()
+                } else {
+                    vec![
+                        "direct child termination could not be confirmed after a wait failure"
+                            .to_owned(),
+                    ]
+                };
                 return finish_run(
                     CommandOutcome {
                         state: CommandState::ObserverFailed,
@@ -394,14 +394,14 @@ fn run_command(
         let was_interrupted = interrupted.load(Ordering::SeqCst);
         if timed_out || was_interrupted {
             let kill_confirmed = child.kill().and_then(|()| child.wait()).is_ok();
-            let blind_spots = (!kill_confirmed)
-                .then(|| {
-                    vec![
-                        "direct child termination could not be confirmed; the process may still be running"
-                            .to_owned(),
-                    ]
-                })
-                .unwrap_or_default();
+            let blind_spots = if kill_confirmed {
+                Vec::new()
+            } else {
+                vec![
+                    "direct child termination could not be confirmed; the process may still be running"
+                        .to_owned(),
+                ]
+            };
             return finish_run(
                 CommandOutcome {
                     state: if was_interrupted {
@@ -449,9 +449,10 @@ fn finish_run(
     mut blind_spots: Vec<String>,
     forwarders: Vec<JoinHandle<io::Result<u64>>>,
 ) -> (CommandOutcome, Vec<String>) {
-    let forwarding_failed = forwarders.into_iter().fold(false, |failed, forwarder| {
-        !matches!(forwarder.join(), Ok(Ok(_))) || failed
-    });
+    let mut forwarding_failed = false;
+    for forwarder in forwarders {
+        forwarding_failed |= !matches!(forwarder.join(), Ok(Ok(_)));
+    }
     if forwarding_failed {
         blind_spots.push(
             "at least one observed-command output stream could not be fully passed through to stderr"
