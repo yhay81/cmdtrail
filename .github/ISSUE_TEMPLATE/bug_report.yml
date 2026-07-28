@@ -1,0 +1,57 @@
+name: Bug report
+description: Report incorrect behavior, coverage declaration, portability, or verification
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Never include real secrets, private paths, internal hosts, or an unreviewed receipt.
+        Report vulnerabilities privately through SECURITY.md.
+  - type: input
+    id: version
+    attributes:
+      label: CmdTrail version
+      placeholder: "cmdtrail 0.1.0"
+    validations:
+      required: true
+  - type: input
+    id: platform
+    attributes:
+      label: Operating system and architecture
+      placeholder: "Ubuntu 24.04 x86_64"
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Observation or capability declaration
+        - Receipt integrity or parsing
+        - Redaction or privacy
+        - Limits or performance
+        - CLI or output contract
+        - Packaging or installation
+        - Documentation
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Safe reproduction
+      description: Include roots, limits, direct argv, and sanitized fixture files.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected evidence
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual evidence
+    validations:
+      required: true

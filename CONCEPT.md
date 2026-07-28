@@ -2,150 +2,185 @@
 
 ## One-line thesis
 
-CmdTrail records a bounded, capability-declared receipt of the observable
-filesystem, process, and network side effects caused by a command.
+CmdTrail records a bounded, capability-declared, integrity-verifiable receipt
+of command effects that its selected observation backend can actually see.
 
 ## Problem
 
 Agents frequently run installers, build scripts, generators, and unfamiliar
 tools. Exit status and terminal output do not answer:
 
-- which files were created, changed, renamed, or deleted;
-- which child processes ran;
-- which hosts were contacted or ports opened;
-- which effects occurred after the parent process exited;
-- which activity the observation mechanism could not see.
+- which persistent files were created, changed, or deleted;
+- whether a command timed out, was interrupted, or failed to spawn;
+- which effects the observation mechanism could not see;
+- whether a saved account of those effects was modified later.
 
-System tracers can expose raw events, but they are platform-specific, verbose,
-privilege-sensitive, and difficult for agents to interpret safely.
+Platform tracers can expose raw events, but they are operating-system-specific,
+privilege-sensitive, verbose, and easy to overclaim. A safe agent contract must
+distinguish observed facts from both inference and unavailable evidence.
 
 ## Target users and jobs
 
-- Coding agents validating what a command actually changed.
-- Maintainers reviewing installer and build behavior.
-- Sandbox and policy authors gathering evidence before enforcing rules.
-- Reproducible-build and supply-chain tooling.
+- Coding agents checking a generator, installer, or build command.
+- Maintainers comparing command behavior across versions.
+- Sandbox and policy authors collecting evidence before enforcing policy.
+- Reproducible-build and supply-chain tools consuming stable JSON.
 
-The primary job is: **run a command under declared observation capabilities and
-return a compact receipt of observable effects and blind spots.**
+The primary job is:
+
+> Run one direct command under declared observation capabilities and return a
+> compact, bounded receipt of retained effects, drops, errors, and blind spots.
 
 ## Product principles
 
 1. Coverage claims are explicit and machine-readable.
-2. Raw observations are separate from summarized effects.
-3. Missing privileges reduce declared coverage; they do not create false
+2. Unavailable evidence is never converted into a negative fact.
+3. Raw observations remain distinct from summarized effects.
+4. Limits, drops, races, and read failures are first-class receipt fields.
+5. Shell interpretation occurs only when the caller explicitly invokes a shell.
+6. Payloads, environment values, and file contents are not persisted.
+7. Secret-bearing displays are redacted before normal output.
+8. Receipt integrity is distinct from producer authenticity and observation
    completeness.
-4. Process trees and delayed effects are tracked where capability permits.
-5. Payloads and file contents are not captured by default.
-6. Secrets and sensitive paths are redacted before normal output.
-7. Observation is separate from prevention.
+9. Observation is separate from prevention.
 
-## Proposed command contract
+## v0.1 backend
+
+The first release deliberately starts with a portable pre/post snapshot backend
+instead of a Linux-only kernel tracer. This provides one honest contract on
+Linux, macOS, and Windows while native backends are calibrated.
+
+The backend:
+
+- resolves one or more non-overlapping directory roots;
+- takes bounded, deterministic, non-symlink-following snapshots;
+- records metadata and bounded regular-file content digests;
+- starts one direct child without an implicit shell;
+- streams child output without persisting it;
+- captures direct-child spawn, exit, signal, timeout, or interruption state;
+- takes a second bounded snapshot;
+- emits created, modified, deleted, and type-changed file effects;
+- seals events and receipt metadata with RFC 8785 JCS and SHA-256.
+
+It cannot see transient file operations whose final state matches the initial
+state. It does not attribute a delta to a process and does not observe
+descendant process trees, network activity, ports, resource totals, or detached
+descendant effects.
+
+## Command contract
 
 ```text
 cmdtrail schema --brief --format json
 cmdtrail capabilities --format json
-cmdtrail record --out receipt.json -- npm install
+cmdtrail contract --format json
+cmdtrail record --out receipt.json --root . -- npm install
 cmdtrail show receipt.json --summary --format json
 cmdtrail diff before.json after.json --format json
 cmdtrail verify receipt.json --format json
 ```
 
-The `--` separator is mandatory before the recorded argument vector. Shell
-interpretation happens only when explicitly requested.
+The `--` separator is mandatory. The remaining argument vector is passed
+directly to the operating system. A caller that wants shell behavior can
+explicitly run `sh -c`, `cmd /C`, or another shell.
+
+Data commands reserve stdout for one JSON document. The observed command's
+stdout and stderr are streamed to CmdTrail's stderr and are not stored.
+
+Receipt creation success is separate from observed-command success. A receipt
+with a failed child is still a successfully recorded fact, so `record` exits
+zero after writing it and callers inspect `command.outcome`.
 
 ## Capability model
 
-Before recording, CmdTrail reports coverage for:
+Each capability is `full`, `partial`, `unavailable`, or `unknown`, with a
+backend and reason. The v0.1 portable backend declares:
 
-- process start, exec, exit, and parent relationships;
-- filesystem create, write, metadata change, rename, and delete;
-- network connect, accept, listen, and resolved endpoint information;
-- resource summaries;
-- descendant tracking and observation duration.
+- direct process lifecycle: `full`;
+- persistent filesystem delta under declared roots: `partial`;
+- descendant process tree: `unavailable`;
+- network connections and listening ports: `unavailable`;
+- resource totals: `unavailable`;
+- delayed descendant effects: `unavailable`;
+- payload capture: `unavailable` by privacy policy.
 
-Each capability is `full`, `partial`, `unavailable`, or `unknown`, with a reason
-and observation backend. The receipt repeats the effective capability set.
+Dynamic changes such as scan truncation, traversal errors, and event drops are
+recorded in addition to the static capability declaration.
 
-## Event and effect model
+## Event and receipt model
 
-Raw events are normalized into versioned records such as:
+The retained event stream contains:
 
-- `process.start`, `process.exec`, and `process.exit`;
-- `file.create`, `file.write`, `file.rename`, and `file.delete`;
-- `network.connect` and `network.listen`;
-- `resource.summary`;
-- `observer.drop` and `coverage.change`.
+- `command_requested`;
+- `command_finished`;
+- `file_effect`.
 
-A bounded effect summary groups repeated events by process, path, and endpoint.
-Complete retained events are content-addressed and referenced by digest.
-
-## Receipt model
+File effects use opaque root and path handles plus a redacted relative display.
+They contain before/after typed state for retained file facts. Repeated raw
+filesystem operations are not inferred from a single final-state delta.
 
 A receipt includes:
 
-- source command, working directory, and redacted environment summary;
-- operating system, kernel, CmdTrail version, and backend;
-- effective user identity and privilege class;
-- observation start/end and descendant policy;
-- capability matrix and known blind spots;
-- process tree and exit outcomes;
-- bounded file and network effect summaries;
-- dropped-event counts and truncation;
-- raw-event and optional snapshot digests;
-- canonical receipt digest.
+- schema and tool versions;
+- derived receipt ID and full receipt digest;
+- operating system and architecture;
+- redacted command displays and omitted secret digests;
+- direct-child outcome;
+- observation time envelope, backend, and working-directory handle;
+- effective capabilities and known blind spots;
+- configured limits and per-root scan statistics;
+- bounded hash-chained events;
+- summary counts, drops, errors, and incompleteness;
+- redaction actions and limitations.
 
-Verification checks receipt integrity. It does not prove that unobserved effects
-did not occur.
+Verification re-parses a strict typed receipt, canonicalizes it with RFC 8785,
+and checks the event chain, event-array digest, receipt digest, and derived ID.
+It does not authenticate the producer. Optional runtime receipt signing is a
+v1.0 candidate.
 
-## Initial scope
+## Threat boundaries
 
-Version 0.1 will be Linux-first and will:
+CmdTrail assumes the local operating system, CmdTrail process, selected binary,
+and receipt output path are not already controlled by an attacker with equal or
+greater privileges. A hostile command running as the same user can race
+snapshot reads, mutate paths after observation, tamper with the host, or create
+a separate forged receipt.
 
-- record a local command and descendants;
-- capture process, filesystem, and network metadata where supported;
-- provide an unprivileged fallback with reduced declared coverage;
-- avoid payload and file-content capture by default;
-- emit bounded JSON receipts and content-addressed event streams;
-- include adversarial fixture programs that test coverage and dropped events.
-
-Backend selection may combine kernel tracing and process-level mechanisms, but
-the public schema must not depend on one Linux API.
+The snapshot backend minimizes claims in that environment. It is evidence
+collection, not containment.
 
 ## Non-goals
 
 - A sandbox, firewall, or policy enforcement engine.
 - Malware detection or semantic intent classification.
-- Remote telemetry or employee monitoring.
-- Capturing network payloads, keystrokes, or complete file contents by default.
-- Claiming complete system observation on unsupported kernels or privileges.
-- Replacing language-specific dependency or build manifests.
+- Employee monitoring or remote telemetry.
+- Capturing stdout, stderr, environment values, network payloads, keystrokes,
+  or complete file contents.
+- Claiming that unobserved effects did not happen.
+- Replacing dependency locks, build manifests, or platform-native tracers.
 
-## Differentiation and defensibility
+## Differentiation
 
-CmdTrail translates noisy operating-system evidence into a stable, honest
-agent contract. Its largest moat is technical: cross-backend normalization,
-coverage calibration, low-overhead capture, redaction, and a rigorous fixture
-suite for completeness claims.
+CmdTrail's value is not another raw trace format. It is a stable agent-facing
+evidence envelope that:
 
-## Success measures
+- calibrates every coverage claim;
+- preserves limit and error evidence;
+- separates observable facts from inference;
+- defaults to bounded storage and privacy-aware displays;
+- provides offline semantic integrity verification;
+- permits portable and native backends to share one contract.
 
-- Event recall and precision against controlled fixture programs.
-- Dropped-event rate under load.
-- Runtime, CPU, memory, and storage overhead.
-- Accuracy of declared capability and blind-spot reporting.
-- Secret-redaction escape rate.
-- Agent success and token reduction when reviewing command effects.
+## Measures
 
-## Key risks and open questions
+The project tracks:
 
-- Kernel APIs, privileges, containers, and namespaces change observability.
-- A recorder can perturb timing and behavior.
-- Complete file-effect attribution is difficult with shared or long-lived
-  processes.
-- Paths and endpoints can themselves contain sensitive information.
-- Cross-platform support may tempt the project to overstate equivalence.
+- recall and precision against controlled fixtures for each supported backend;
+- declaration accuracy for unsupported and degraded capabilities;
+- dropped-event and traversal-error accounting;
+- runtime, CPU, memory, and storage overhead;
+- supported-pattern secret-redaction escape rate;
+- integrity mutation rejection rate;
+- agent task success and review-token reduction;
+- repeat adoption and external feedback.
 
-CmdTrail must earn trust through calibrated limitations. A partial receipt
-that says exactly what it missed is more useful than an unqualified claim of
-completeness.
+Quantified v1.0 gates are defined in [ROADMAP.md](ROADMAP.md).

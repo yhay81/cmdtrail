@@ -1,0 +1,4 @@
+/target/
+*.receipt.json
+*.events.ndjson
+.DS_Store

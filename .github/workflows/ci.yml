@@ -1,0 +1,112 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    - cron: "29 5 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Install Rust quality components
+        run: |
+          rustup toolchain install stable --profile minimal --component rustfmt,clippy
+          rustup default stable
+      - name: Formatting
+        run: cargo fmt --check
+      - name: Lints
+        run: cargo clippy --all-targets --all-features --locked -- -D warnings
+
+  audit:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      checks: write
+      issues: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Audit Rust dependencies
+        uses: rustsec/audit-check@858dc40f52ca2b8570b7a997c1c4e35c6fc9a432 # master, Node 24
+        env:
+          RUSTUP_TOOLCHAIN: stable
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+  msrv:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Install declared MSRV
+        run: rustup toolchain install 1.85.0 --profile minimal
+      - name: Check with Rust 1.85
+        run: cargo +1.85.0 check --all-targets --locked
+
+  contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Install Rust
+        run: |
+          rustup toolchain install stable --profile minimal
+          rustup default stable
+      - name: Package
+        run: cargo package --locked --allow-dirty
+      - name: Machine contracts and completions
+        shell: bash
+        run: |
+          cargo build --locked
+          target/debug/cmdtrail schema --format json | jq -e . >/dev/null
+          target/debug/cmdtrail capabilities --format json | jq -e . >/dev/null
+          target/debug/cmdtrail contract --format json | jq -e . >/dev/null
+          for shell in bash zsh fish powershell elvish; do
+            test -n "$(target/debug/cmdtrail completions "${shell}")"
+          done
+      - name: External receipt lifecycle
+        shell: bash
+        run: |
+          fixture_root="$(mktemp -d)"
+          trap 'rm -rf "${fixture_root}"' EXIT
+          mkdir "${fixture_root}/observed"
+          target/debug/cmdtrail record \
+            --out "${fixture_root}/receipt.json" \
+            --cwd "${fixture_root}/observed" \
+            --root . \
+            -- sh -c 'printf observed > generated.txt'
+          target/debug/cmdtrail verify "${fixture_root}/receipt.json" \
+            | jq -e '.integrity_valid' >/dev/null
+          target/debug/cmdtrail show "${fixture_root}/receipt.json" --summary \
+            | jq -e '.summary.file_effect_counts.created >= 1' >/dev/null
+      - name: Documentation inventory
+        shell: bash
+        run: |
+          for file in README.md CONCEPT.md ROADMAP.md CHANGELOG.md RELEASING.md \
+              SECURITY.md CONTRIBUTING.md CODE_OF_CONDUCT.md GOVERNANCE.md \
+              SUPPORT.md ADOPTERS.md LICENSE docs/*.md; do
+            test -s "${file}"
+          done
+
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Install Rust
+        shell: bash
+        run: |
+          rustup toolchain install stable --profile minimal
+          rustup default stable
+      - name: Test library and CLI
+        run: cargo test --all-targets --locked
+      - name: Build release binary
+        run: cargo build --release --locked

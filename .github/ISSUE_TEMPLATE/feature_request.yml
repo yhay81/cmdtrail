@@ -1,0 +1,37 @@
+name: Feature or backend proposal
+description: Propose user value with measurable capability and privacy boundaries
+title: "[Proposal]: "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: User problem
+      description: What decision cannot be made with the current evidence?
+    validations:
+      required: true
+  - type: textarea
+    id: capability
+    attributes:
+      label: Proposed observable capability
+      description: Include backend, platform, privilege, expected level, and blind spots.
+    validations:
+      required: true
+  - type: textarea
+    id: fixtures
+    attributes:
+      label: Calibration fixtures
+      description: How can recall, precision, drops, and degradation be measured?
+    validations:
+      required: true
+  - type: textarea
+    id: privacy
+    attributes:
+      label: Privacy and security impact
+      description: What new metadata, payload, privilege, or attack surface is introduced?
+    validations:
+      required: true
+  - type: textarea
+    id: non_goals
+    attributes:
+      label: Non-goals
