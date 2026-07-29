@@ -11,15 +11,13 @@ struct TestDirectory {
 }
 
 impl TestDirectory {
-    fn new(name: &str) -> Self {
+    fn new() -> Self {
         let nonce = SystemTime::now()
             .duration_since(UNIX_EPOCH)
             .expect("time should be after epoch")
             .as_nanos();
-        let path = std::env::temp_dir().join(format!(
-            "cmdtrail-cli-{name}-{}-{nonce}",
-            std::process::id()
-        ));
+        let path =
+            std::env::temp_dir().join(format!("cmdtrail-cli-{}-{nonce}", std::process::id()));
         fs::create_dir(&path).expect("test directory should be created");
         Self { path }
     }
@@ -36,39 +34,33 @@ fn fixture_child() {
     let Ok(mode) = std::env::var("CMDTRAIL_FIXTURE_MODE") else {
         return;
     };
-    let root = PathBuf::from(
-        std::env::var_os("CMDTRAIL_FIXTURE_ROOT").expect("fixture root should be set"),
-    );
     match mode.as_str() {
         "effects" => {
-            fs::write(root.join("created.txt"), b"created").expect("fixture should create");
-            fs::write(root.join("modified.txt"), b"after!").expect("fixture should modify");
-            fs::remove_file(root.join("deleted.txt")).expect("fixture should delete");
-            fs::write(root.join(".env.production"), b"PRIVATE_VALUE=do-not-record")
+            fs::write("created.txt", b"created").expect("fixture should create");
+            fs::write("modified.txt", b"after!").expect("fixture should modify");
+            fs::remove_file("deleted.txt").expect("fixture should delete");
+            fs::write(".env.production", b"PRIVATE_VALUE=do-not-record")
                 .expect("fixture should create sensitive file");
             println!("fixture standard output");
             eprintln!("fixture standard error");
         }
         "many" => {
             for index in 0..5 {
-                fs::write(root.join(format!("many-{index}.txt")), index.to_string())
+                fs::write(format!("many-{index}.txt"), index.to_string())
                     .expect("fixture should create many files");
             }
         }
         "second" => {
-            fs::write(root.join("second.txt"), b"second").expect("fixture should create");
+            fs::write("second.txt", b"second").expect("fixture should create");
         }
         "occupy_receipt" => {
-            let receipt = PathBuf::from(
-                std::env::var_os("CMDTRAIL_FIXTURE_RECEIPT")
-                    .expect("fixture receipt should be set"),
-            );
-            fs::write(root.join("side-effect.txt"), b"command-ran")
+            fs::write("side-effect.txt", b"command-ran")
                 .expect("fixture should create side effect");
-            fs::write(receipt, b"occupied-by-command").expect("fixture should occupy receipt path");
+            fs::write("receipt.json", b"occupied-by-command")
+                .expect("fixture should occupy receipt path");
         }
         "sleep" => {
-            fs::write(root.join("child-ready"), b"ready").expect("fixture should signal readiness");
+            fs::write("child-ready", b"ready").expect("fixture should signal readiness");
             std::thread::sleep(Duration::from_secs(5));
         }
         "fail" => std::process::exit(17),
@@ -79,7 +71,7 @@ fn fixture_child() {
 
 #[test]
 fn records_verifies_and_summarizes_portable_effects() {
-    let directory = TestDirectory::new("record");
+    let directory = TestDirectory::new();
     let root = directory.path.join("root");
     fs::create_dir(&root).expect("root should be created");
     fs::write(root.join("modified.txt"), b"before").expect("fixture should write");
@@ -150,7 +142,7 @@ fn records_verifies_and_summarizes_portable_effects() {
 
 #[test]
 fn child_failure_is_a_successfully_recorded_fact() {
-    let directory = TestDirectory::new("failure");
+    let directory = TestDirectory::new();
     let root = directory.path.join("root");
     fs::create_dir(&root).expect("root should be created");
     let receipt = directory.path.join("failure.receipt.json");
@@ -168,7 +160,7 @@ fn child_failure_is_a_successfully_recorded_fact() {
 
 #[test]
 fn timeout_is_bounded_and_receipted() {
-    let directory = TestDirectory::new("timeout");
+    let directory = TestDirectory::new();
     let root = directory.path.join("root");
     fs::create_dir(&root).expect("root should be created");
     let receipt = directory.path.join("timeout.receipt.json");
@@ -188,7 +180,7 @@ fn timeout_is_bounded_and_receipted() {
 #[cfg(unix)]
 #[test]
 fn interruption_is_receipted_and_marks_snapshot_incomplete() {
-    let directory = TestDirectory::new("interrupt");
+    let directory = TestDirectory::new();
     let root = directory.path.join("root");
     fs::create_dir(&root).expect("root should be created");
     let receipt = directory.path.join("interrupt.receipt.json");
@@ -224,7 +216,7 @@ fn interruption_is_receipted_and_marks_snapshot_incomplete() {
 
 #[test]
 fn limits_are_declared_and_dropped_events_are_counted() {
-    let directory = TestDirectory::new("limits");
+    let directory = TestDirectory::new();
     let root = directory.path.join("root");
     fs::create_dir(&root).expect("root should be created");
     let receipt = directory.path.join("limited.receipt.json");
@@ -249,7 +241,7 @@ fn limits_are_declared_and_dropped_events_are_counted() {
 
 #[test]
 fn tampering_unknown_fields_and_overwrites_fail_closed() {
-    let directory = TestDirectory::new("tamper");
+    let directory = TestDirectory::new();
     let root = directory.path.join("root");
     fs::create_dir(&root).expect("root should be created");
     let receipt = directory.path.join("original.receipt.json");
@@ -319,7 +311,7 @@ fn tampering_unknown_fields_and_overwrites_fail_closed() {
 
 #[test]
 fn unavailable_receipt_parent_is_rejected_before_command_execution() {
-    let directory = TestDirectory::new("receipt-preflight");
+    let directory = TestDirectory::new();
     let root = directory.path.join("root");
     fs::create_dir(&root).expect("root should be created");
     let receipt = directory.path.join("missing").join("receipt.json");
@@ -344,7 +336,7 @@ fn unavailable_receipt_parent_is_rejected_before_command_execution() {
 
 #[test]
 fn relative_receipt_filename_uses_the_process_working_directory() {
-    let directory = TestDirectory::new("relative-receipt");
+    let directory = TestDirectory::new();
     let root = directory.path.join("root");
     fs::create_dir(&root).expect("root should be created");
     let relative_receipt = Path::new("relative.receipt.json");
@@ -365,10 +357,10 @@ fn relative_receipt_filename_uses_the_process_working_directory() {
 
 #[test]
 fn post_command_receipt_race_persists_recovery_and_forbids_retry() {
-    let directory = TestDirectory::new("receipt-recovery");
+    let directory = TestDirectory::new();
     let root = directory.path.join("root");
     fs::create_dir(&root).expect("root should be created");
-    let receipt = directory.path.join("receipt.json");
+    let receipt = root.join("receipt.json");
 
     let output = run_record(&root, &receipt, "occupy_receipt", &[]);
 
@@ -417,7 +409,7 @@ fn post_command_receipt_race_persists_recovery_and_forbids_retry() {
 
 #[test]
 fn diff_compares_only_verified_receipts() {
-    let directory = TestDirectory::new("diff");
+    let directory = TestDirectory::new();
     let root = directory.path.join("root");
     fs::create_dir(&root).expect("root should be created");
     let before = directory.path.join("before.receipt.json");
@@ -445,7 +437,7 @@ fn diff_compares_only_verified_receipts() {
 
 #[test]
 fn diff_keys_are_portable_across_equivalent_root_positions() {
-    let directory = TestDirectory::new("portable-diff");
+    let directory = TestDirectory::new();
     let first_root = directory.path.join("first-root");
     let second_root = directory.path.join("second-root");
     fs::create_dir(&first_root).expect("first root should be created");
@@ -495,8 +487,6 @@ fn record_command(root: &Path, receipt: &Path, mode: &str, extra: &[&str]) -> Co
         .arg(std::env::current_exe().expect("test executable should resolve"))
         .args(["--exact", "fixture_child", "--nocapture"])
         .env("CMDTRAIL_FIXTURE_MODE", mode)
-        .env("CMDTRAIL_FIXTURE_ROOT", root)
-        .env("CMDTRAIL_FIXTURE_RECEIPT", receipt)
         .env("TEST_REDACT_VALUE", "literal-secret");
     command
 }
