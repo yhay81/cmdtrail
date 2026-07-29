@@ -8,7 +8,7 @@ with the documented RFC 8785 domain-separated digest algorithm.
 the current reader or verifier must reject. `verify_golden.py` is an
 independent, standard-library-only verifier for the v0.1 receipt data model; it
 does not import or execute CmdTrail. `test_verify_golden.py` runs that verifier
-against the same twelve declared mutations used by the Rust compatibility
+against the same thirteen declared mutations used by the Rust compatibility
 suite.
 
 The corpus is immutable once published. Add a new version directory when a
