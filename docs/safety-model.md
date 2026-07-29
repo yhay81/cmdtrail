@@ -83,11 +83,19 @@ command succeeded.
 
 Receipt files are created with no-overwrite semantics. Unix files use mode
 `0600`; Windows uses the caller's inherited ACL. Existing paths, including
-symlinks, are refused before execution and checked again at creation.
+symlinks, are refused before execution and checked again at creation. The
+filename and parent directory are also validated before command execution.
 
 A power loss or storage error can leave a partial newly created file. Strict
 parsing and integrity verification reject it. CmdTrail does not claim a
 filesystem transaction across the command and receipt write.
+
+If a write fails after command execution, CmdTrail does not remove the
+requested path or repeat the command. It attempts a no-clobber recovery receipt
+beside the requested path and returns exit 6 with `do_not_retry_record`, receipt
+identity, command state, and recovery status. See
+[receipt recovery](receipt-recovery.md). A crash or power loss can prevent this
+signal from being emitted.
 
 ## Privacy and redaction
 

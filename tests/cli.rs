@@ -1,31 +1,27 @@
+use cmdtrail::integrity::verify_receipt;
+use cmdtrail::receipt::read_receipt;
 use serde_json::Value;
 use std::fs;
 use std::path::{Path, PathBuf};
 use std::process::{Command, Output, Stdio};
-use std::time::{Duration, SystemTime, UNIX_EPOCH};
+use std::time::Duration;
 
 struct TestDirectory {
+    _directory: tempfile::TempDir,
     path: PathBuf,
 }
 
 impl TestDirectory {
-    fn new(name: &str) -> Self {
-        let nonce = SystemTime::now()
-            .duration_since(UNIX_EPOCH)
-            .expect("time should be after epoch")
-            .as_nanos();
-        let path = std::env::temp_dir().join(format!(
-            "cmdtrail-cli-{name}-{}-{nonce}",
-            std::process::id()
-        ));
-        fs::create_dir(&path).expect("test directory should be created");
-        Self { path }
-    }
-}
-
-impl Drop for TestDirectory {
-    fn drop(&mut self) {
-        let _ = fs::remove_dir_all(&self.path);
+    fn new() -> Self {
+        let directory = tempfile::Builder::new()
+            .prefix("cmdtrail-cli-")
+            .tempdir()
+            .expect("test directory should be created securely");
+        let path = directory.path().to_path_buf();
+        Self {
+            _directory: directory,
+            path,
+        }
     }
 }
 
@@ -34,30 +30,33 @@ fn fixture_child() {
     let Ok(mode) = std::env::var("CMDTRAIL_FIXTURE_MODE") else {
         return;
     };
-    let root = PathBuf::from(
-        std::env::var_os("CMDTRAIL_FIXTURE_ROOT").expect("fixture root should be set"),
-    );
     match mode.as_str() {
         "effects" => {
-            fs::write(root.join("created.txt"), b"created").expect("fixture should create");
-            fs::write(root.join("modified.txt"), b"after!").expect("fixture should modify");
-            fs::remove_file(root.join("deleted.txt")).expect("fixture should delete");
-            fs::write(root.join(".env.production"), b"PRIVATE_VALUE=do-not-record")
+            fs::write("created.txt", b"created").expect("fixture should create");
+            fs::write("modified.txt", b"after!").expect("fixture should modify");
+            fs::remove_file("deleted.txt").expect("fixture should delete");
+            fs::write(".env.production", b"PRIVATE_VALUE=do-not-record")
                 .expect("fixture should create sensitive file");
             println!("fixture standard output");
             eprintln!("fixture standard error");
         }
         "many" => {
             for index in 0..5 {
-                fs::write(root.join(format!("many-{index}.txt")), index.to_string())
+                fs::write(format!("many-{index}.txt"), index.to_string())
                     .expect("fixture should create many files");
             }
         }
         "second" => {
-            fs::write(root.join("second.txt"), b"second").expect("fixture should create");
+            fs::write("second.txt", b"second").expect("fixture should create");
+        }
+        "occupy_receipt" => {
+            fs::write("side-effect.txt", b"command-ran")
+                .expect("fixture should create side effect");
+            fs::write("receipt.json", b"occupied-by-command")
+                .expect("fixture should occupy receipt path");
         }
         "sleep" => {
-            fs::write(root.join("child-ready"), b"ready").expect("fixture should signal readiness");
+            fs::write("child-ready", b"ready").expect("fixture should signal readiness");
             std::thread::sleep(Duration::from_secs(5));
         }
         "fail" => std::process::exit(17),
@@ -68,7 +67,7 @@ fn fixture_child() {
 
 #[test]
 fn records_verifies_and_summarizes_portable_effects() {
-    let directory = TestDirectory::new("record");
+    let directory = TestDirectory::new();
     let root = directory.path.join("root");
     fs::create_dir(&root).expect("root should be created");
     fs::write(root.join("modified.txt"), b"before").expect("fixture should write");
@@ -139,7 +138,7 @@ fn records_verifies_and_summarizes_portable_effects() {
 
 #[test]
 fn child_failure_is_a_successfully_recorded_fact() {
-    let directory = TestDirectory::new("failure");
+    let directory = TestDirectory::new();
     let root = directory.path.join("root");
     fs::create_dir(&root).expect("root should be created");
     let receipt = directory.path.join("failure.receipt.json");
@@ -157,7 +156,7 @@ fn child_failure_is_a_successfully_recorded_fact() {
 
 #[test]
 fn timeout_is_bounded_and_receipted() {
-    let directory = TestDirectory::new("timeout");
+    let directory = TestDirectory::new();
     let root = directory.path.join("root");
     fs::create_dir(&root).expect("root should be created");
     let receipt = directory.path.join("timeout.receipt.json");
@@ -177,7 +176,7 @@ fn timeout_is_bounded_and_receipted() {
 #[cfg(unix)]
 #[test]
 fn interruption_is_receipted_and_marks_snapshot_incomplete() {
-    let directory = TestDirectory::new("interrupt");
+    let directory = TestDirectory::new();
     let root = directory.path.join("root");
     fs::create_dir(&root).expect("root should be created");
     let receipt = directory.path.join("interrupt.receipt.json");
@@ -213,7 +212,7 @@ fn interruption_is_receipted_and_marks_snapshot_incomplete() {
 
 #[test]
 fn limits_are_declared_and_dropped_events_are_counted() {
-    let directory = TestDirectory::new("limits");
+    let directory = TestDirectory::new();
     let root = directory.path.join("root");
     fs::create_dir(&root).expect("root should be created");
     let receipt = directory.path.join("limited.receipt.json");
@@ -238,7 +237,7 @@ fn limits_are_declared_and_dropped_events_are_counted() {
 
 #[test]
 fn tampering_unknown_fields_and_overwrites_fail_closed() {
-    let directory = TestDirectory::new("tamper");
+    let directory = TestDirectory::new();
     let root = directory.path.join("root");
     fs::create_dir(&root).expect("root should be created");
     let receipt = directory.path.join("original.receipt.json");
@@ -307,8 +306,106 @@ fn tampering_unknown_fields_and_overwrites_fail_closed() {
 }
 
 #[test]
+fn unavailable_receipt_parent_is_rejected_before_command_execution() {
+    let directory = TestDirectory::new();
+    let root = directory.path.join("root");
+    fs::create_dir(&root).expect("root should be created");
+    let receipt = directory.path.join("missing").join("receipt.json");
+
+    let output = run_record(&root, &receipt, "second", &[]);
+
+    assert_eq!(output.status.code(), Some(1));
+    assert!(
+        !root.join("second.txt").exists(),
+        "preflight failure must prevent command side effects"
+    );
+    assert!(!receipt.exists());
+    let error: Value = String::from_utf8_lossy(&output.stderr)
+        .lines()
+        .last()
+        .map(serde_json::from_str)
+        .expect("runtime error line")
+        .expect("runtime error should be JSON");
+    assert_eq!(error["code"], "output_parent_unavailable");
+    assert!(error.get("recovery").is_none());
+}
+
+#[test]
+fn relative_receipt_filename_uses_the_process_working_directory() {
+    let directory = TestDirectory::new();
+    let root = directory.path.join("root");
+    fs::create_dir(&root).expect("root should be created");
+    let relative_receipt = Path::new("relative.receipt.json");
+    let mut command = record_command(&root, relative_receipt, "noop", &[]);
+    command.current_dir(&directory.path);
+
+    let output = command.output().expect("cmdtrail record should run");
+
+    assert!(
+        output.status.success(),
+        "record failed: {}",
+        String::from_utf8_lossy(&output.stderr)
+    );
+    let receipt = directory.path.join(relative_receipt);
+    let recovered = read_receipt(&receipt).expect("strict relative receipt");
+    assert!(verify_receipt(&recovered).integrity_valid);
+}
+
+#[test]
+fn post_command_receipt_race_persists_recovery_and_forbids_retry() {
+    let directory = TestDirectory::new();
+    let root = directory.path.join("root");
+    fs::create_dir(&root).expect("root should be created");
+    let receipt = root.join("receipt.json");
+
+    let output = run_record(&root, &receipt, "occupy_receipt", &[]);
+
+    assert_eq!(output.status.code(), Some(6));
+    assert!(output.stdout.is_empty());
+    assert_eq!(
+        fs::read(&receipt).expect("occupied path should remain"),
+        b"occupied-by-command"
+    );
+    assert!(root.join("side-effect.txt").is_file());
+    let error: Value = String::from_utf8_lossy(&output.stderr)
+        .lines()
+        .last()
+        .map(serde_json::from_str)
+        .expect("runtime error line")
+        .expect("runtime error should be JSON");
+    assert_eq!(error["code"], "receipt_recovery_required");
+    assert_eq!(error["exit_code"], 6);
+    assert_eq!(error["recovery"]["action"], "do_not_retry_record");
+    assert_eq!(error["recovery"]["command_state"], "exited");
+    assert_eq!(
+        error["recovery"]["primary_error_code"],
+        "output_already_exists"
+    );
+    assert_eq!(error["recovery"]["recovery_receipt_persisted"], true);
+    assert_eq!(
+        error["recovery"]["receipt_sha256"].as_str().map(str::len),
+        Some(64)
+    );
+    let recovery_path = PathBuf::from(
+        error["recovery"]["recovery_receipt"]
+            .as_str()
+            .expect("recovery receipt path"),
+    );
+    let recovered = read_receipt(&recovery_path).expect("strict recovery receipt");
+    assert!(verify_receipt(&recovered).integrity_valid);
+    assert_eq!(
+        error["recovery"]["receipt_id"],
+        recovered.receipt_id.as_str()
+    );
+    assert_eq!(
+        error["recovery"]["receipt_sha256"],
+        recovered.receipt_sha256.as_str()
+    );
+}
+
+#[test]
 fn diff_compares_only_verified_receipts() {
-    let directory = TestDirectory::new("diff");
+    let directory = TestDirectory::new();
     let root = directory.path.join("root");
     fs::create_dir(&root).expect("root should be created");
     let before = directory.path.join("before.receipt.json");
@@ -336,7 +433,7 @@ fn diff_compares_only_verified_receipts() {
 
 #[test]
 fn diff_keys_are_portable_across_equivalent_root_positions() {
-    let directory = TestDirectory::new("portable-diff");
+    let directory = TestDirectory::new();
     let first_root = directory.path.join("first-root");
     let second_root = directory.path.join("second-root");
     fs::create_dir(&first_root).expect("first root should be created");
@@ -386,7 +483,6 @@ fn record_command(root: &Path, receipt: &Path, mode: &str, extra: &[&str]) -> Co
         .arg(std::env::current_exe().expect("test executable should resolve"))
         .args(["--exact", "fixture_child", "--nocapture"])
         .env("CMDTRAIL_FIXTURE_MODE", mode)
-        .env("CMDTRAIL_FIXTURE_ROOT", root)
         .env("TEST_REDACT_VALUE", "literal-secret");
     command
 }

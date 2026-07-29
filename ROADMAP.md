@@ -71,6 +71,9 @@ decision.
   a native backend, with missed classes converted to `partial`.
 - Zero escapes in the supported-pattern redaction corpus; unsupported
   arbitrary-secret limitations remain prominent.
+- Receipt destination failures detectable before execution never start the
+  command; failures after execution preserve all paths, attempt a no-clobber
+  recovery receipt, and emit machine-actionable no-retry evidence.
 - Zero known critical or high-severity vulnerabilities at release time.
 - An external security and privacy review of receipt metadata, redaction,
   symlink handling, races, and authenticity boundaries is resolved.

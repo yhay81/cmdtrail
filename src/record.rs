@@ -1,12 +1,12 @@
 use crate::capability::portable_capabilities;
-use crate::error::AppError;
+use crate::error::{AppError, ReceiptRecovery, RecoveryAction};
 use crate::integrity::{append_event, finalize_receipt, sha256_bytes};
 use crate::model::{
     CommandOutcome, CommandRecord, CommandRequested, CommandState, CoverageLevel, EventData,
     LimitsRecord, Observation, PlatformInfo, Receipt, ReceiptSummary, RecordResult,
     RedactionReport,
 };
-use crate::receipt::write_new_receipt;
+use crate::receipt::{preflight_new_receipt, receipt_parent, write_new_receipt};
 use crate::redact::{os_bytes, Redactor};
 use crate::snapshot::{compare, prepare_roots, root_records, SnapshotConfig};
 use std::collections::BTreeMap;
@@ -45,6 +45,7 @@ pub struct RecordOptions {
 #[allow(clippy::too_many_lines)]
 pub fn record(options: &RecordOptions) -> Result<RecordResult, AppError> {
     validate_options(options)?;
+    preflight_new_receipt(&options.output)?;
     let redactor = Redactor::from_environment_names(&options.redact_environment_names)
         .map_err(|message| AppError::usage("invalid_redaction_environment", message))?;
     let working_directory = options
@@ -252,7 +253,7 @@ pub fn record(options: &RecordOptions) -> Result<RecordResult, AppError> {
         redaction,
     };
     finalize_receipt(&mut receipt)?;
-    write_new_receipt(&options.output, &receipt)?;
+    persist_receipt_with_recovery(&options.output, &receipt)?;
 
     Ok(RecordResult {
         schema_version: "cmdtrail.record-result.v1",
@@ -307,17 +308,86 @@ fn validate_options(options: &RecordOptions) -> Result<(), AppError> {
             "the command timeout must be between 1 ms and 24 hours",
         ));
     }
-    match fs::symlink_metadata(&options.output) {
-        Ok(_) => Err(AppError::io(
-            "output_already_exists",
-            "the receipt output path already exists; CmdTrail never overwrites receipts",
+    Ok(())
+}
+
+fn persist_receipt_with_recovery(path: &Path, receipt: &Receipt) -> Result<(), AppError> {
+    persist_receipt_with_recovery_using(path, receipt, write_new_receipt)
+}
+
+fn persist_receipt_with_recovery_using<F>(
+    path: &Path,
+    receipt: &Receipt,
+    mut write_receipt: F,
+) -> Result<(), AppError>
+where
+    F: FnMut(&Path, &Receipt) -> Result<(), AppError>,
+{
+    let Err(primary_error) = write_receipt(path, receipt) else {
+        return Ok(());
+    };
+    let recovery_path = recovery_receipt_path(path, receipt);
+    match write_receipt(&recovery_path, receipt) {
+        Ok(()) => Err(post_execution_receipt_error(
+            "receipt_recovery_required",
+            path,
+            &recovery_path,
+            receipt,
+            primary_error.code,
+            None,
+            true,
         )),
-        Err(error) if error.kind() == std::io::ErrorKind::NotFound => Ok(()),
-        Err(_) => Err(AppError::io(
-            "output_preflight_failed",
-            "the receipt output path could not be checked safely",
+        Err(recovery_error) => Err(post_execution_receipt_error(
+            "receipt_recovery_failed",
+            path,
+            &recovery_path,
+            receipt,
+            primary_error.code,
+            Some(recovery_error.code),
+            false,
         )),
     }
+}
+
+fn recovery_receipt_path(path: &Path, receipt: &Receipt) -> PathBuf {
+    receipt_parent(path).join(format!(".cmdtrail-recovery-{}.json", receipt.receipt_id))
+}
+
+fn post_execution_receipt_error(
+    code: &'static str,
+    requested_path: &Path,
+    recovery_path: &Path,
+    receipt: &Receipt,
+    primary_error_code: &'static str,
+    recovery_error_code: Option<&'static str>,
+    recovery_receipt_persisted: bool,
+) -> AppError {
+    let message = if recovery_receipt_persisted {
+        format!(
+            "the command was attempted and the requested receipt could not be written; recovery receipt saved to {}; do not retry record",
+            recovery_path.display()
+        )
+    } else {
+        format!(
+            "the command was attempted and neither the requested receipt nor recovery receipt {} could be written; do not retry record",
+            recovery_path.display()
+        )
+    };
+    AppError::post_execution_receipt(
+        code,
+        message,
+        ReceiptRecovery {
+            action: RecoveryAction::DoNotRetryRecord,
+            receipt_id: receipt.receipt_id.clone(),
+            receipt_sha256: receipt.receipt_sha256.clone(),
+            command_state: receipt.summary.command_state.clone(),
+            requested_receipt: requested_path.to_string_lossy().into_owned(),
+            recovery_receipt: recovery_path.to_string_lossy().into_owned(),
+            recovery_receipt_persisted,
+            primary_error_code,
+            recovery_error_code,
+        },
+    )
 }
 
 fn run_command(
@@ -495,4 +565,76 @@ fn unix_ms() -> u64 {
         .map_or(0, |duration| {
             u64::try_from(duration.as_millis()).unwrap_or(u64::MAX)
         })
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::error::ExitClass;
+
+    fn receipt_fixture() -> Receipt {
+        serde_json::from_str(include_str!(
+            "../tests/fixtures/contracts/v0.1/portable.receipt.json"
+        ))
+        .expect("parse receipt fixture")
+    }
+
+    #[test]
+    fn primary_receipt_failure_uses_the_no_clobber_recovery_path() {
+        let receipt = receipt_fixture();
+        let requested = PathBuf::from("receipts/result.json");
+        let expected_recovery = recovery_receipt_path(&requested, &receipt);
+        let mut attempted = Vec::new();
+
+        let error = persist_receipt_with_recovery_using(&requested, &receipt, |path, _receipt| {
+            attempted.push(path.to_path_buf());
+            if path == requested {
+                Err(AppError::io(
+                    "output_already_exists",
+                    "forced primary failure",
+                ))
+            } else {
+                Ok(())
+            }
+        })
+        .expect_err("primary failure requires reconciliation");
+
+        assert_eq!(
+            attempted,
+            vec![requested.clone(), expected_recovery.clone()]
+        );
+        assert_eq!(error.class, ExitClass::PostExecutionReceipt);
+        assert_eq!(error.code, "receipt_recovery_required");
+        let recovery = error.recovery.expect("recovery evidence");
+        assert_eq!(recovery.requested_receipt, "receipts/result.json");
+        assert_eq!(PathBuf::from(recovery.recovery_receipt), expected_recovery);
+        assert!(recovery.recovery_receipt_persisted);
+        assert_eq!(recovery.primary_error_code, "output_already_exists");
+        assert_eq!(recovery.recovery_error_code, None);
+    }
+
+    #[test]
+    fn failed_recovery_retains_receipt_identity_and_no_retry_action() {
+        let receipt = receipt_fixture();
+        let requested = PathBuf::from("receipts/result.json");
+
+        let error = persist_receipt_with_recovery_using(&requested, &receipt, |path, _receipt| {
+            let code = if path == requested {
+                "output_write_failed"
+            } else {
+                "output_create_failed"
+            };
+            Err(AppError::io(code, "forced failure"))
+        })
+        .expect_err("both writes must fail");
+
+        assert_eq!(error.class, ExitClass::PostExecutionReceipt);
+        assert_eq!(error.code, "receipt_recovery_failed");
+        let recovery = error.recovery.expect("recovery evidence");
+        assert_eq!(recovery.receipt_id, receipt.receipt_id);
+        assert_eq!(recovery.receipt_sha256, receipt.receipt_sha256);
+        assert!(!recovery.recovery_receipt_persisted);
+        assert_eq!(recovery.primary_error_code, "output_write_failed");
+        assert_eq!(recovery.recovery_error_code, Some("output_create_failed"));
+    }
 }

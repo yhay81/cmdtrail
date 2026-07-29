@@ -81,6 +81,13 @@ cmdtrail diff first.receipt.json second.receipt.json --format json
 command failed. Always inspect `command_success`, `command_state`, and
 `command.outcome.exit_code`.
 
+CmdTrail rejects detectable receipt destination errors before starting the
+command. If receipt persistence fails after command execution, it exits 6,
+attempts a no-clobber recovery receipt beside the requested path, and emits
+`action: "do_not_retry_record"` with the receipt identity and command state.
+Follow the [receipt recovery procedure](docs/receipt-recovery.md); blindly
+rerunning `record` can duplicate command side effects.
+
 ## Observation roots and bounds
 
 Without `--root`, CmdTrail observes the command working directory. Repeat

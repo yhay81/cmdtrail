@@ -93,6 +93,10 @@ pub fn capabilities_document() -> CapabilitiesDocument {
                 "receipt_integrity",
                 "sha256_event_chain_and_canonical_receipt",
             ),
+            (
+                "receipt_recovery",
+                "preflight_then_no_clobber_recovery_with_do_not_retry",
+            ),
             ("unavailable_capabilities", "declared_not_inferred"),
         ]),
     }
@@ -135,6 +139,7 @@ pub fn contract_document() -> ContractDocument {
             (3, "receipt_integrity_failure"),
             (4, "configured_or_input_limit"),
             (5, "command_execution_setup_failure_without_receipt"),
+            (6, "post_execution_receipt_failure_do_not_retry"),
         ]),
         receipt_schema: crate::RECEIPT_SCHEMA,
         integrity_algorithm: "RFC 8785 JCS plus SHA-256 with cmdtrail.integrity.v1 domain separation",
@@ -225,5 +230,24 @@ pub fn schema_document(brief: bool) -> SchemaDocument {
                 ),
             ])
         }),
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn machine_contract_declares_post_execution_receipt_recovery() {
+        let contract = contract_document();
+        assert_eq!(
+            contract.exit_codes.get(&6),
+            Some(&"post_execution_receipt_failure_do_not_retry")
+        );
+        let capabilities = capabilities_document();
+        assert_eq!(
+            capabilities.safety_defaults.get("receipt_recovery"),
+            Some(&"preflight_then_no_clobber_recovery_with_do_not_retry")
+        );
     }
 }

@@ -21,9 +21,17 @@ unstructured passthrough channel.
 | 3 | Receipt integrity failure |
 | 4 | Configured or receipt-input limit failure |
 | 5 | Execution setup failed before a receipt could be written |
+| 6 | Command was attempted, but requested receipt persistence failed; do not retry |
 
 Observed command exit state is stored under `command.outcome`; it is not
 propagated as CmdTrail's process exit code.
+
+Exit 6 emits `receipt_recovery_required` when the integrity-sealed receipt was
+saved at the no-clobber recovery path, or `receipt_recovery_failed` when that
+fallback also failed. The final stderr JSON includes a `recovery` object with
+`action: "do_not_retry_record"`, receipt ID and SHA-256, command state, both
+paths, persistence state, and stable storage error codes. Observed-command
+output can precede this JSON; the error document is the final stderr line.
 
 ## Receipt schemas
 
