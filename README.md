@@ -198,6 +198,9 @@ Download the native archive for Linux x86_64, macOS Apple Silicon or Intel, or
 Windows x86_64 from
 [GitHub Releases](https://github.com/yhay81/cmdtrail/releases).
 
+See [INSTALL.md](INSTALL.md) for platform-specific asset selection,
+checksum- and provenance-verified installation, updating, and removal.
+
 Every release contains:
 
 - the native binary, documentation, completions, and machine contract;
