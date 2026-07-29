@@ -4,28 +4,24 @@ use serde_json::Value;
 use std::fs;
 use std::path::{Path, PathBuf};
 use std::process::{Command, Output, Stdio};
-use std::time::{Duration, SystemTime, UNIX_EPOCH};
+use std::time::Duration;
 
 struct TestDirectory {
+    _directory: tempfile::TempDir,
     path: PathBuf,
 }
 
 impl TestDirectory {
     fn new() -> Self {
-        let nonce = SystemTime::now()
-            .duration_since(UNIX_EPOCH)
-            .expect("time should be after epoch")
-            .as_nanos();
-        let path =
-            std::env::temp_dir().join(format!("cmdtrail-cli-{}-{nonce}", std::process::id()));
-        fs::create_dir(&path).expect("test directory should be created");
-        Self { path }
-    }
-}
-
-impl Drop for TestDirectory {
-    fn drop(&mut self) {
-        let _ = fs::remove_dir_all(&self.path);
+        let directory = tempfile::Builder::new()
+            .prefix("cmdtrail-cli-")
+            .tempdir()
+            .expect("test directory should be created securely");
+        let path = directory.path().to_path_buf();
+        Self {
+            _directory: directory,
+            path,
+        }
     }
 }
 
