@@ -1,8 +1,7 @@
 # CmdTrail performance baseline
 
-This directory defines the reproducible, observation-only baseline used to
-calibrate CmdTrail's v1.0 performance thresholds. Timing and memory are not yet
-required pull-request checks.
+This directory defines and enforces CmdTrail's reproducible v1.0 performance
+thresholds on pull requests and in the weekly scheduled benchmark.
 
 ## Workloads
 
@@ -19,20 +18,39 @@ Every measurement captures complete default pre/post hashing around
 fixtures, and outputs are synthetic project artifacts covered by the
 repository's MIT license.
 
-The harness runs the three sizes once, without warm-up, and records GNU `time`
-wall time and peak resident memory, CmdTrail's internal duration and snapshot
-statistics, output and receipt bytes, fixture content digests, offline receipt
-verification, runner identity, and the exact CmdTrail commit.
+Each sample performs untimed build and tree generation. The workflow discards
+one warm-up and captures 20 samples across the three sizes. It records GNU
+`time` wall time and peak resident memory, CmdTrail's internal duration and
+snapshot statistics, output and receipt bytes, fixture content digests,
+offline receipt verification, runner identity, and the exact CmdTrail commit.
+
+## Enforced thresholds
+
+The versioned policy in `thresholds.json` enforces:
+
+- the complete portable 10,000-file snapshot below 2 seconds p95;
+- peak RSS no greater than 256 MiB in every 1k, 10k, and 100k sample.
+
+Twenty samples make nearest-rank p95 the second-slowest observation. Once
+`baseline-ubuntu24.json` is present, metrics must also remain within the
+stricter of the absolute limit and the versioned noise allowance: 1.5 times
+baseline or baseline plus 100 ms for time and 16 MiB for memory.
 
 ## Run
 
-The supported measurement environment is the `ubuntu-latest` GitHub-hosted
-runner selected by `.github/workflows/benchmark.yml`. Run it manually with the
-**Benchmark** workflow, or on a compatible Linux machine:
+The supported measurement environment is the `ubuntu-24.04` x86_64
+GitHub-hosted runner selected by `.github/workflows/benchmark.yml`. Run one raw
+sample on a compatible Linux machine with:
 
 ```bash
 benchmarks/run.sh benchmark-results.json
 jq . benchmark-results.json
+```
+
+Run evaluator tests with:
+
+```bash
+python3 -m unittest benchmarks/test_evaluate.py
 ```
 
 GNU `time`, GNU `stat`, `timeout`, `/usr/bin/true`, `jq`, Python 3, Git, Cargo,
@@ -40,7 +58,6 @@ and the locked Rust dependency graph are required. Build and tree-generation
 time are excluded. Generated trees and receipts are temporary and are not
 uploaded.
 
-The workflow retains raw JSON for 90 days. Shared hosted runners are noisy, so
-a single run is not a regression. Before enabling v1.0 gates, publish the
-runner image, warm-up policy, sample count, p95 calculation, baseline window,
-and noise-aware regression rule with the raw measurements.
+The workflow uploads all 20 raw samples and the aggregate evaluation for 90
+days, including raw samples from a failed threshold evaluation. The checked-in
+baseline is refreshed only from a successful protected-runner evaluation.

@@ -188,7 +188,7 @@ jq -n \
           $metrics_100k[0].max_rss_kib
         ] | max | . / 1024)
     },
-    threshold_status: "observation_only"
+    threshold_status: "raw_sample"
   }' >"${result_path}"
 
 jq -e '
