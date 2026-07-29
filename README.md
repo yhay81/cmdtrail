@@ -18,18 +18,18 @@ that a portable snapshot is a complete system trace.
 
 ## Status
 
-CmdTrail v0.2.0 uses the `portable_pre_post_snapshot` backend on Linux, macOS,
+CmdTrail v0.3.0 uses the `portable_pre_post_snapshot` backend on Linux, macOS,
 and Windows. It is useful for controlled project directories, but it is not a
 sandbox or complete tracer.
 
-| Capability | v0.2.0 coverage | Why |
+| Capability | v0.3.0 coverage | Why |
 | --- | --- | --- |
 | Direct child spawn and outcome | Full | CmdTrail owns the direct child handle |
 | Persistent file delta under declared roots | Partial | Bounded pre/post metadata and content-digest snapshots |
 | Descendant process tree | Unavailable | No process instrumentation in the portable backend |
 | Transient file effects | Unavailable | A create/write/delete between snapshots leaves no final delta |
-| Network and listening ports | Unavailable | No socket instrumentation in v0.2.0 |
-| Resource totals | Unavailable | No portable per-tree accounting in v0.2.0 |
+| Network and listening ports | Unavailable | No socket instrumentation in v0.3.0 |
+| Resource totals | Unavailable | No portable per-tree accounting in v0.3.0 |
 | Detached or delayed descendants | Unavailable | The post-snapshot starts when the direct child exits |
 
 Run `cmdtrail capabilities --format json` for the machine-readable declaration.
@@ -210,7 +210,7 @@ Verify an archive:
 ```bash
 shasum -a 256 -c SHA256SUMS
 gh attestation verify \
-  cmdtrail-v0.2.0-macos-aarch64.tar.gz \
+  cmdtrail-v0.3.0-macos-aarch64.tar.gz \
   --repo yhay81/cmdtrail
 ```
 

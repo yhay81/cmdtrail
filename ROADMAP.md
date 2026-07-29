@@ -55,6 +55,13 @@ CmdTrail v1.0 requires all of the following:
   major schema/version with a migration guide.
 - A native backend never silently falls back or upgrades a capability level.
 
+Current evidence: v0.2 and v0.3 provide the two required released
+compatibility cycles. The current v0.3 verifier accepts the digest-pinned v0.1
+`cmdtrail.receipt.v1` corpus byte-for-byte. The v0.2 and v0.3 release notes
+record contract preservation; no migration is required. Future receipt
+versions must add golden documents and an explicit migration or no-migration
+decision.
+
 ### Correctness and security
 
 - 100% rejection of the published receipt mutation corpus.
