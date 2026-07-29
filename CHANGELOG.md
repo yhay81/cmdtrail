@@ -13,6 +13,8 @@ All notable changes are documented here. CmdTrail follows
   and Intel, and Windows x86_64 using the published instructions.
 - Enforced the published v1.0 10,000-file latency and 100,000-entry bounded
   memory thresholds from 20-sample benchmark evidence on Ubuntu 24.04.
+- Published a deterministic 128-case supported-pattern redaction corpus with
+  exact-output scoring, benign controls, and zero-escape CI enforcement.
 
 ### Fixed
 

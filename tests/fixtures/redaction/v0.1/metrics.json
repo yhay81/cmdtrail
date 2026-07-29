@@ -1,0 +1,69 @@
+{
+  "benign_controls": 24,
+  "benign_false_positives": 0,
+  "by_category": {
+    "benign_command_control": {
+      "cases": 12,
+      "escapes": 0,
+      "exact_matches": 12,
+      "secret_observations": 0
+    },
+    "benign_path_control": {
+      "cases": 12,
+      "escapes": 0,
+      "exact_matches": 12,
+      "secret_observations": 0
+    },
+    "custom_exact_value": {
+      "cases": 12,
+      "escapes": 0,
+      "exact_matches": 12,
+      "secret_observations": 12
+    },
+    "joined_secret_key": {
+      "cases": 20,
+      "escapes": 0,
+      "exact_matches": 20,
+      "secret_observations": 20
+    },
+    "sensitive_path": {
+      "cases": 20,
+      "escapes": 0,
+      "exact_matches": 20,
+      "secret_observations": 20
+    },
+    "separated_secret_flag": {
+      "cases": 20,
+      "escapes": 0,
+      "exact_matches": 20,
+      "secret_observations": 20
+    },
+    "url_fragment": {
+      "cases": 8,
+      "escapes": 0,
+      "exact_matches": 8,
+      "secret_observations": 8
+    },
+    "url_query": {
+      "cases": 12,
+      "escapes": 0,
+      "exact_matches": 12,
+      "secret_observations": 12
+    },
+    "url_userinfo": {
+      "cases": 12,
+      "escapes": 0,
+      "exact_matches": 12,
+      "secret_observations": 12
+    }
+  },
+  "corpus_sha256": "21da341abe95ddee0613d3ef8ed657d07fd94ee75fe529fc742a3ce79bef2a49",
+  "escape_rate": 0.0,
+  "escapes": 0,
+  "exact_accuracy": 1.0,
+  "exact_matches": 128,
+  "schema_version": "cmdtrail.redaction-metrics.v1",
+  "secret_observations": 104,
+  "supported_pattern_cases": 104,
+  "total_cases": 128
+}
