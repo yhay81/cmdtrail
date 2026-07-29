@@ -68,25 +68,7 @@ pub fn read_receipt(path: &Path) -> Result<Receipt, AppError> {
 /// Returns an error when the parent or target is unsafe, serialization fails, or durable
 /// writing fails.
 pub fn write_new_receipt(path: &Path, receipt: &Receipt) -> Result<(), AppError> {
-    if path.file_name().is_none() {
-        return Err(AppError::usage(
-            "invalid_output_path",
-            "the output path must include a file name",
-        ));
-    }
-    let parent = path.parent().unwrap_or_else(|| Path::new("."));
-    let parent_metadata = fs::metadata(parent).map_err(|_| {
-        AppError::io(
-            "output_parent_unavailable",
-            "the receipt output directory does not exist or is inaccessible",
-        )
-    })?;
-    if !parent_metadata.is_dir() {
-        return Err(AppError::io(
-            "output_parent_not_directory",
-            "the receipt output parent is not a directory",
-        ));
-    }
+    preflight_new_receipt(path)?;
 
     let mut bytes = serde_json::to_vec_pretty(receipt).map_err(|_| {
         AppError::io(
@@ -119,4 +101,63 @@ pub fn write_new_receipt(path: &Path, receipt: &Receipt) -> Result<(), AppError>
     file.write_all(&bytes)
         .and_then(|()| file.sync_all())
         .map_err(|_| AppError::io("output_write_failed", "could not durably write the receipt"))
+}
+
+/// Validates every receipt destination property that can be checked before a command runs.
+///
+/// # Errors
+///
+/// Returns an error when the path lacks a file name, its parent is unavailable or not a
+/// directory, or any object already occupies the target path.
+pub fn preflight_new_receipt(path: &Path) -> Result<(), AppError> {
+    if path.file_name().is_none() {
+        return Err(AppError::usage(
+            "invalid_output_path",
+            "the output path must include a file name",
+        ));
+    }
+    let parent = receipt_parent(path);
+    let parent_metadata = fs::metadata(parent).map_err(|_| {
+        AppError::io(
+            "output_parent_unavailable",
+            "the receipt output directory does not exist or is inaccessible",
+        )
+    })?;
+    if !parent_metadata.is_dir() {
+        return Err(AppError::io(
+            "output_parent_not_directory",
+            "the receipt output parent is not a directory",
+        ));
+    }
+    match fs::symlink_metadata(path) {
+        Ok(_) => Err(AppError::io(
+            "output_already_exists",
+            "the receipt output path already exists; CmdTrail never overwrites receipts",
+        )),
+        Err(error) if error.kind() == std::io::ErrorKind::NotFound => Ok(()),
+        Err(_) => Err(AppError::io(
+            "output_preflight_failed",
+            "the receipt output path could not be checked safely",
+        )),
+    }
+}
+
+pub(crate) fn receipt_parent(path: &Path) -> &Path {
+    path.parent()
+        .filter(|parent| !parent.as_os_str().is_empty())
+        .unwrap_or_else(|| Path::new("."))
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn a_single_relative_filename_uses_the_current_directory() {
+        assert_eq!(receipt_parent(Path::new("receipt.json")), Path::new("."));
+        assert_eq!(
+            receipt_parent(Path::new("receipts/receipt.json")),
+            Path::new("receipts")
+        );
+    }
 }

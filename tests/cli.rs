@@ -1,3 +1,5 @@
+use cmdtrail::integrity::verify_receipt;
+use cmdtrail::receipt::read_receipt;
 use serde_json::Value;
 use std::fs;
 use std::path::{Path, PathBuf};
@@ -55,6 +57,15 @@ fn fixture_child() {
         }
         "second" => {
             fs::write(root.join("second.txt"), b"second").expect("fixture should create");
+        }
+        "occupy_receipt" => {
+            let receipt = PathBuf::from(
+                std::env::var_os("CMDTRAIL_FIXTURE_RECEIPT")
+                    .expect("fixture receipt should be set"),
+            );
+            fs::write(root.join("side-effect.txt"), b"command-ran")
+                .expect("fixture should create side effect");
+            fs::write(receipt, b"occupied-by-command").expect("fixture should occupy receipt path");
         }
         "sleep" => {
             fs::write(root.join("child-ready"), b"ready").expect("fixture should signal readiness");
@@ -307,6 +318,104 @@ fn tampering_unknown_fields_and_overwrites_fail_closed() {
 }
 
 #[test]
+fn unavailable_receipt_parent_is_rejected_before_command_execution() {
+    let directory = TestDirectory::new("receipt-preflight");
+    let root = directory.path.join("root");
+    fs::create_dir(&root).expect("root should be created");
+    let receipt = directory.path.join("missing").join("receipt.json");
+
+    let output = run_record(&root, &receipt, "second", &[]);
+
+    assert_eq!(output.status.code(), Some(1));
+    assert!(
+        !root.join("second.txt").exists(),
+        "preflight failure must prevent command side effects"
+    );
+    assert!(!receipt.exists());
+    let error: Value = String::from_utf8_lossy(&output.stderr)
+        .lines()
+        .last()
+        .map(serde_json::from_str)
+        .expect("runtime error line")
+        .expect("runtime error should be JSON");
+    assert_eq!(error["code"], "output_parent_unavailable");
+    assert!(error.get("recovery").is_none());
+}
+
+#[test]
+fn relative_receipt_filename_uses_the_process_working_directory() {
+    let directory = TestDirectory::new("relative-receipt");
+    let root = directory.path.join("root");
+    fs::create_dir(&root).expect("root should be created");
+    let relative_receipt = Path::new("relative.receipt.json");
+    let mut command = record_command(&root, relative_receipt, "noop", &[]);
+    command.current_dir(&directory.path);
+
+    let output = command.output().expect("cmdtrail record should run");
+
+    assert!(
+        output.status.success(),
+        "record failed: {}",
+        String::from_utf8_lossy(&output.stderr)
+    );
+    let receipt = directory.path.join(relative_receipt);
+    let recovered = read_receipt(&receipt).expect("strict relative receipt");
+    assert!(verify_receipt(&recovered).integrity_valid);
+}
+
+#[test]
+fn post_command_receipt_race_persists_recovery_and_forbids_retry() {
+    let directory = TestDirectory::new("receipt-recovery");
+    let root = directory.path.join("root");
+    fs::create_dir(&root).expect("root should be created");
+    let receipt = directory.path.join("receipt.json");
+
+    let output = run_record(&root, &receipt, "occupy_receipt", &[]);
+
+    assert_eq!(output.status.code(), Some(6));
+    assert!(output.stdout.is_empty());
+    assert_eq!(
+        fs::read(&receipt).expect("occupied path should remain"),
+        b"occupied-by-command"
+    );
+    assert!(root.join("side-effect.txt").is_file());
+    let error: Value = String::from_utf8_lossy(&output.stderr)
+        .lines()
+        .last()
+        .map(serde_json::from_str)
+        .expect("runtime error line")
+        .expect("runtime error should be JSON");
+    assert_eq!(error["code"], "receipt_recovery_required");
+    assert_eq!(error["exit_code"], 6);
+    assert_eq!(error["recovery"]["action"], "do_not_retry_record");
+    assert_eq!(error["recovery"]["command_state"], "exited");
+    assert_eq!(
+        error["recovery"]["primary_error_code"],
+        "output_already_exists"
+    );
+    assert_eq!(error["recovery"]["recovery_receipt_persisted"], true);
+    assert_eq!(
+        error["recovery"]["receipt_sha256"].as_str().map(str::len),
+        Some(64)
+    );
+    let recovery_path = PathBuf::from(
+        error["recovery"]["recovery_receipt"]
+            .as_str()
+            .expect("recovery receipt path"),
+    );
+    let recovered = read_receipt(&recovery_path).expect("strict recovery receipt");
+    assert!(verify_receipt(&recovered).integrity_valid);
+    assert_eq!(
+        error["recovery"]["receipt_id"],
+        recovered.receipt_id.as_str()
+    );
+    assert_eq!(
+        error["recovery"]["receipt_sha256"],
+        recovered.receipt_sha256.as_str()
+    );
+}
+
+#[test]
 fn diff_compares_only_verified_receipts() {
     let directory = TestDirectory::new("diff");
     let root = directory.path.join("root");
@@ -387,6 +496,7 @@ fn record_command(root: &Path, receipt: &Path, mode: &str, extra: &[&str]) -> Co
         .args(["--exact", "fixture_child", "--nocapture"])
         .env("CMDTRAIL_FIXTURE_MODE", mode)
         .env("CMDTRAIL_FIXTURE_ROOT", root)
+        .env("CMDTRAIL_FIXTURE_RECEIPT", receipt)
         .env("TEST_REDACT_VALUE", "literal-secret");
     command
 }

@@ -18,6 +18,12 @@ All notable changes are documented here. CmdTrail follows
 
 - Rejected performance evidence with a non-canonical commit identity,
   incomplete runner metadata, a non-raw sample marker, or reused sample paths.
+- Prevented detectable receipt destination failures from running the observed
+  command. Post-command receipt failures now preserve all paths, attempt a
+  no-clobber recovery receipt, and emit exit 6 with receipt identity, command
+  state, storage error codes, and `do_not_retry_record`.
+- Treated a single relative receipt filename as a path in the current
+  directory, matching the documented `--out receipt.json` workflow.
 
 ## [0.3.0] - 2026-07-29
 
