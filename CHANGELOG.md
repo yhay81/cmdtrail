@@ -70,6 +70,7 @@ All notable changes are documented here. CmdTrail follows
 - Signed native release archives, checksums, CycloneDX SBOM, and GitHub
   attestations.
 
-[Unreleased]: https://github.com/yhay81/cmdtrail/compare/v0.2.0...HEAD
+[Unreleased]: https://github.com/yhay81/cmdtrail/compare/v0.3.0...HEAD
+[0.3.0]: https://github.com/yhay81/cmdtrail/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/yhay81/cmdtrail/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/yhay81/cmdtrail/releases/tag/v0.1.0
