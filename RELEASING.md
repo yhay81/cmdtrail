@@ -3,6 +3,30 @@
 Releases are built only from signed annotated `vX.Y.Z` tags that point to the
 protected `main` branch.
 
+## v1 evidence gate
+
+Every release validates the checked-in evidence manifest structure:
+
+```bash
+python3 scripts/verify_v1_evidence.py \
+  .github/v1-evidence.json --check-structure
+```
+
+For every v1 or later release, update the manifest with public, reviewable
+evidence for the exact target version and run:
+
+```bash
+python3 scripts/verify_v1_evidence.py \
+  .github/v1-evidence.json \
+  --require-ready \
+  --release-version 1.0.0
+```
+
+The verifier derives readiness from the evidence. Do not add a bypass, count
+maintainer activity as adoption, suppress a failed gate, or move evidence dates
+forward. The continuous window must end on `as_of` and include one public
+successful-run URL for every required track on every date.
+
 1. Confirm the version in `Cargo.toml`, `Cargo.lock`, and `CHANGELOG.md`.
 2. Run:
 
