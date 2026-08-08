@@ -138,7 +138,12 @@ pub struct Event {
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq)]
-#[serde(tag = "type", content = "details", rename_all = "snake_case")]
+#[serde(
+    tag = "type",
+    content = "details",
+    rename_all = "snake_case",
+    deny_unknown_fields
+)]
 pub enum EventData {
     CommandRequested(CommandRequested),
     CommandFinished(CommandOutcome),

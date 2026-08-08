@@ -179,7 +179,7 @@ attestations authenticate CmdTrail binaries, not runtime receipts.
 
 See [contracts](docs/contracts.md) for the independent verification algorithm.
 The repository also publishes a digest-pinned
-[v0.1 receipt corpus](tests/fixtures/contracts/README.md) with twelve declared
+[v0.1 receipt corpus](tests/fixtures/contracts/README.md) with thirteen declared
 fail-closed mutations and a standard-library-only independent verifier.
 
 Performance observations use deterministic 1k-file, 10k-file, and 100k-entry

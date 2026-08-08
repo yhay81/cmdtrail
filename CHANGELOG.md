@@ -18,6 +18,9 @@ All notable changes are documented here. CmdTrail follows
 
 ### Fixed
 
+- Rejected unknown fields on tagged event wrapper objects before receipt
+  integrity verification, matching the strict JSON contract and independent
+  verifier.
 - Rejected performance evidence with a non-canonical commit identity,
   incomplete runner metadata, a non-raw sample marker, or reused sample paths.
 - Prevented detectable receipt destination failures from running the observed

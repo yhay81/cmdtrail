@@ -62,7 +62,7 @@ class CorpusTest(unittest.TestCase):
                 else:
                     verified = verify_golden.validate_receipt(receipt)
                     self.assertIn(case["expected_error"], verify_golden.verify(verified))
-        self.assertEqual(len(ids), 12)
+        self.assertEqual(len(ids), 13)
 
 
 if __name__ == "__main__":

@@ -106,5 +106,5 @@ fn declared_v01_mutations_fail_closed() {
             );
         }
     }
-    assert_eq!(ids.len(), 12);
+    assert_eq!(ids.len(), 13);
 }
