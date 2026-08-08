@@ -15,6 +15,13 @@
       "value": true
     },
     {
+      "id": "unknown-event-wrapper-field",
+      "class": "parse",
+      "operation": "add",
+      "pointer": "/events/0/event/unexpected",
+      "value": true
+    },
+    {
       "id": "unknown-event-details-field",
       "class": "parse",
       "operation": "add",
