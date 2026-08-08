@@ -24,6 +24,10 @@ jobs:
         run: cargo fmt --check
       - name: Lints
         run: cargo clippy --all-targets --all-features --locked -- -D warnings
+      - name: Redaction corpus
+        run: |
+          python3 tests/fixtures/redaction/v0.1/generate_corpus.py --check
+          cargo test --locked redact::corpus_tests::published_redaction_metrics_are_reproducible
       - name: Benchmark harness
         shell: bash
         run: |

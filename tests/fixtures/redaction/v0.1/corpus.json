@@ -1,0 +1,3792 @@
+{
+  "cases": [
+    {
+      "category": "separated_secret_flag",
+      "expected": {
+        "argument_digest_present": [
+          true,
+          false,
+          true,
+          true
+        ],
+        "argument_displays": [
+          "--password",
+          "[redacted]",
+          "--mode",
+          "safe"
+        ],
+        "executable_display": "tool",
+        "path_display": null,
+        "redacted_arguments": 1,
+        "redacted_path_components": 0
+      },
+      "id": "separated-secret-flag-00",
+      "input": {
+        "arguments": [
+          "--password",
+          "separated-value-00",
+          "--mode",
+          "safe"
+        ],
+        "custom_values": [],
+        "executable": "tool",
+        "kind": "command",
+        "path": null
+      },
+      "secrets": [
+        "separated-value-00"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "separated_secret_flag",
+      "expected": {
+        "argument_digest_present": [
+          true,
+          false,
+          true,
+          true
+        ],
+        "argument_displays": [
+          "--passwd",
+          "[redacted]",
+          "--mode",
+          "safe"
+        ],
+        "executable_display": "tool",
+        "path_display": null,
+        "redacted_arguments": 1,
+        "redacted_path_components": 0
+      },
+      "id": "separated-secret-flag-01",
+      "input": {
+        "arguments": [
+          "--passwd",
+          "separated-value-01",
+          "--mode",
+          "safe"
+        ],
+        "custom_values": [],
+        "executable": "tool",
+        "kind": "command",
+        "path": null
+      },
+      "secrets": [
+        "separated-value-01"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "separated_secret_flag",
+      "expected": {
+        "argument_digest_present": [
+          true,
+          false,
+          true,
+          true
+        ],
+        "argument_displays": [
+          "--token",
+          "[redacted]",
+          "--mode",
+          "safe"
+        ],
+        "executable_display": "tool",
+        "path_display": null,
+        "redacted_arguments": 1,
+        "redacted_path_components": 0
+      },
+      "id": "separated-secret-flag-02",
+      "input": {
+        "arguments": [
+          "--token",
+          "separated-value-02",
+          "--mode",
+          "safe"
+        ],
+        "custom_values": [],
+        "executable": "tool",
+        "kind": "command",
+        "path": null
+      },
+      "secrets": [
+        "separated-value-02"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "separated_secret_flag",
+      "expected": {
+        "argument_digest_present": [
+          true,
+          false,
+          true,
+          true
+        ],
+        "argument_displays": [
+          "--access-token",
+          "[redacted]",
+          "--mode",
+          "safe"
+        ],
+        "executable_display": "tool",
+        "path_display": null,
+        "redacted_arguments": 1,
+        "redacted_path_components": 0
+      },
+      "id": "separated-secret-flag-03",
+      "input": {
+        "arguments": [
+          "--access-token",
+          "separated-value-03",
+          "--mode",
+          "safe"
+        ],
+        "custom_values": [],
+        "executable": "tool",
+        "kind": "command",
+        "path": null
+      },
+      "secrets": [
+        "separated-value-03"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "separated_secret_flag",
+      "expected": {
+        "argument_digest_present": [
+          true,
+          false,
+          true,
+          true
+        ],
+        "argument_displays": [
+          "--refresh_token",
+          "[redacted]",
+          "--mode",
+          "safe"
+        ],
+        "executable_display": "tool",
+        "path_display": null,
+        "redacted_arguments": 1,
+        "redacted_path_components": 0
+      },
+      "id": "separated-secret-flag-04",
+      "input": {
+        "arguments": [
+          "--refresh_token",
+          "separated-value-04",
+          "--mode",
+          "safe"
+        ],
+        "custom_values": [],
+        "executable": "tool",
+        "kind": "command",
+        "path": null
+      },
+      "secrets": [
+        "separated-value-04"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "separated_secret_flag",
+      "expected": {
+        "argument_digest_present": [
+          true,
+          false,
+          true,
+          true
+        ],
+        "argument_displays": [
+          "--client.secret",
+          "[redacted]",
+          "--mode",
+          "safe"
+        ],
+        "executable_display": "tool",
+        "path_display": null,
+        "redacted_arguments": 1,
+        "redacted_path_components": 0
+      },
+      "id": "separated-secret-flag-05",
+      "input": {
+        "arguments": [
+          "--client.secret",
+          "separated-value-05",
+          "--mode",
+          "safe"
+        ],
+        "custom_values": [],
+        "executable": "tool",
+        "kind": "command",
+        "path": null
+      },
+      "secrets": [
+        "separated-value-05"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "separated_secret_flag",
+      "expected": {
+        "argument_digest_present": [
+          true,
+          false,
+          true,
+          true
+        ],
+        "argument_displays": [
+          "--credential",
+          "[redacted]",
+          "--mode",
+          "safe"
+        ],
+        "executable_display": "tool",
+        "path_display": null,
+        "redacted_arguments": 1,
+        "redacted_path_components": 0
+      },
+      "id": "separated-secret-flag-06",
+      "input": {
+        "arguments": [
+          "--credential",
+          "separated-value-06",
+          "--mode",
+          "safe"
+        ],
+        "custom_values": [],
+        "executable": "tool",
+        "kind": "command",
+        "path": null
+      },
+      "secrets": [
+        "separated-value-06"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "separated_secret_flag",
+      "expected": {
+        "argument_digest_present": [
+          true,
+          false,
+          true,
+          true
+        ],
+        "argument_displays": [
+          "--api-key",
+          "[redacted]",
+          "--mode",
+          "safe"
+        ],
+        "executable_display": "tool",
+        "path_display": null,
+        "redacted_arguments": 1,
+        "redacted_path_components": 0
+      },
+      "id": "separated-secret-flag-07",
+      "input": {
+        "arguments": [
+          "--api-key",
+          "separated-value-07",
+          "--mode",
+          "safe"
+        ],
+        "custom_values": [],
+        "executable": "tool",
+        "kind": "command",
+        "path": null
+      },
+      "secrets": [
+        "separated-value-07"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "separated_secret_flag",
+      "expected": {
+        "argument_digest_present": [
+          true,
+          false,
+          true,
+          true
+        ],
+        "argument_displays": [
+          "--api_key",
+          "[redacted]",
+          "--mode",
+          "safe"
+        ],
+        "executable_display": "tool",
+        "path_display": null,
+        "redacted_arguments": 1,
+        "redacted_path_components": 0
+      },
+      "id": "separated-secret-flag-08",
+      "input": {
+        "arguments": [
+          "--api_key",
+          "separated-value-08",
+          "--mode",
+          "safe"
+        ],
+        "custom_values": [],
+        "executable": "tool",
+        "kind": "command",
+        "path": null
+      },
+      "secrets": [
+        "separated-value-08"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "separated_secret_flag",
+      "expected": {
+        "argument_digest_present": [
+          true,
+          false,
+          true,
+          true
+        ],
+        "argument_displays": [
+          "--private-key",
+          "[redacted]",
+          "--mode",
+          "safe"
+        ],
+        "executable_display": "tool",
+        "path_display": null,
+        "redacted_arguments": 1,
+        "redacted_path_components": 0
+      },
+      "id": "separated-secret-flag-09",
+      "input": {
+        "arguments": [
+          "--private-key",
+          "separated-value-09",
+          "--mode",
+          "safe"
+        ],
+        "custom_values": [],
+        "executable": "tool",
+        "kind": "command",
+        "path": null
+      },
+      "secrets": [
+        "separated-value-09"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "separated_secret_flag",
+      "expected": {
+        "argument_digest_present": [
+          true,
+          false,
+          true,
+          true
+        ],
+        "argument_displays": [
+          "--private_key",
+          "[redacted]",
+          "--mode",
+          "safe"
+        ],
+        "executable_display": "tool",
+        "path_display": null,
+        "redacted_arguments": 1,
+        "redacted_path_components": 0
+      },
+      "id": "separated-secret-flag-10",
+      "input": {
+        "arguments": [
+          "--private_key",
+          "separated-value-10",
+          "--mode",
+          "safe"
+        ],
+        "custom_values": [],
+        "executable": "tool",
+        "kind": "command",
+        "path": null
+      },
+      "secrets": [
+        "separated-value-10"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "separated_secret_flag",
+      "expected": {
+        "argument_digest_present": [
+          true,
+          false,
+          true,
+          true
+        ],
+        "argument_displays": [
+          "--authorization",
+          "[redacted]",
+          "--mode",
+          "safe"
+        ],
+        "executable_display": "tool",
+        "path_display": null,
+        "redacted_arguments": 1,
+        "redacted_path_components": 0
+      },
+      "id": "separated-secret-flag-11",
+      "input": {
+        "arguments": [
+          "--authorization",
+          "separated-value-11",
+          "--mode",
+          "safe"
+        ],
+        "custom_values": [],
+        "executable": "tool",
+        "kind": "command",
+        "path": null
+      },
+      "secrets": [
+        "separated-value-11"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "separated_secret_flag",
+      "expected": {
+        "argument_digest_present": [
+          true,
+          false,
+          true,
+          true
+        ],
+        "argument_displays": [
+          "--cookie",
+          "[redacted]",
+          "--mode",
+          "safe"
+        ],
+        "executable_display": "tool",
+        "path_display": null,
+        "redacted_arguments": 1,
+        "redacted_path_components": 0
+      },
+      "id": "separated-secret-flag-12",
+      "input": {
+        "arguments": [
+          "--cookie",
+          "separated-value-12",
+          "--mode",
+          "safe"
+        ],
+        "custom_values": [],
+        "executable": "tool",
+        "kind": "command",
+        "path": null
+      },
+      "secrets": [
+        "separated-value-12"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "separated_secret_flag",
+      "expected": {
+        "argument_digest_present": [
+          true,
+          false,
+          true,
+          true
+        ],
+        "argument_displays": [
+          "--session-token",
+          "[redacted]",
+          "--mode",
+          "safe"
+        ],
+        "executable_display": "tool",
+        "path_display": null,
+        "redacted_arguments": 1,
+        "redacted_path_components": 0
+      },
+      "id": "separated-secret-flag-13",
+      "input": {
+        "arguments": [
+          "--session-token",
+          "separated-value-13",
+          "--mode",
+          "safe"
+        ],
+        "custom_values": [],
+        "executable": "tool",
+        "kind": "command",
+        "path": null
+      },
+      "secrets": [
+        "separated-value-13"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "separated_secret_flag",
+      "expected": {
+        "argument_digest_present": [
+          true,
+          false,
+          true,
+          true
+        ],
+        "argument_displays": [
+          "--db-password",
+          "[redacted]",
+          "--mode",
+          "safe"
+        ],
+        "executable_display": "tool",
+        "path_display": null,
+        "redacted_arguments": 1,
+        "redacted_path_components": 0
+      },
+      "id": "separated-secret-flag-14",
+      "input": {
+        "arguments": [
+          "--db-password",
+          "separated-value-14",
+          "--mode",
+          "safe"
+        ],
+        "custom_values": [],
+        "executable": "tool",
+        "kind": "command",
+        "path": null
+      },
+      "secrets": [
+        "separated-value-14"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "separated_secret_flag",
+      "expected": {
+        "argument_digest_present": [
+          true,
+          false,
+          true,
+          true
+        ],
+        "argument_displays": [
+          "--github.token",
+          "[redacted]",
+          "--mode",
+          "safe"
+        ],
+        "executable_display": "tool",
+        "path_display": null,
+        "redacted_arguments": 1,
+        "redacted_path_components": 0
+      },
+      "id": "separated-secret-flag-15",
+      "input": {
+        "arguments": [
+          "--github.token",
+          "separated-value-15",
+          "--mode",
+          "safe"
+        ],
+        "custom_values": [],
+        "executable": "tool",
+        "kind": "command",
+        "path": null
+      },
+      "secrets": [
+        "separated-value-15"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "separated_secret_flag",
+      "expected": {
+        "argument_digest_present": [
+          true,
+          false,
+          true,
+          true
+        ],
+        "argument_displays": [
+          "--secret",
+          "[redacted]",
+          "--mode",
+          "safe"
+        ],
+        "executable_display": "tool",
+        "path_display": null,
+        "redacted_arguments": 1,
+        "redacted_path_components": 0
+      },
+      "id": "separated-secret-flag-16",
+      "input": {
+        "arguments": [
+          "--secret",
+          "separated-value-16",
+          "--mode",
+          "safe"
+        ],
+        "custom_values": [],
+        "executable": "tool",
+        "kind": "command",
+        "path": null
+      },
+      "secrets": [
+        "separated-value-16"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "separated_secret_flag",
+      "expected": {
+        "argument_digest_present": [
+          true,
+          false,
+          true,
+          true
+        ],
+        "argument_displays": [
+          "--secret-key",
+          "[redacted]",
+          "--mode",
+          "safe"
+        ],
+        "executable_display": "tool",
+        "path_display": null,
+        "redacted_arguments": 1,
+        "redacted_path_components": 0
+      },
+      "id": "separated-secret-flag-17",
+      "input": {
+        "arguments": [
+          "--secret-key",
+          "separated-value-17",
+          "--mode",
+          "safe"
+        ],
+        "custom_values": [],
+        "executable": "tool",
+        "kind": "command",
+        "path": null
+      },
+      "secrets": [
+        "separated-value-17"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "separated_secret_flag",
+      "expected": {
+        "argument_digest_present": [
+          true,
+          false,
+          true,
+          true
+        ],
+        "argument_displays": [
+          "--auth-token",
+          "[redacted]",
+          "--mode",
+          "safe"
+        ],
+        "executable_display": "tool",
+        "path_display": null,
+        "redacted_arguments": 1,
+        "redacted_path_components": 0
+      },
+      "id": "separated-secret-flag-18",
+      "input": {
+        "arguments": [
+          "--auth-token",
+          "separated-value-18",
+          "--mode",
+          "safe"
+        ],
+        "custom_values": [],
+        "executable": "tool",
+        "kind": "command",
+        "path": null
+      },
+      "secrets": [
+        "separated-value-18"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "separated_secret_flag",
+      "expected": {
+        "argument_digest_present": [
+          true,
+          false,
+          true,
+          true
+        ],
+        "argument_displays": [
+          "--credentials-file",
+          "[redacted]",
+          "--mode",
+          "safe"
+        ],
+        "executable_display": "tool",
+        "path_display": null,
+        "redacted_arguments": 1,
+        "redacted_path_components": 0
+      },
+      "id": "separated-secret-flag-19",
+      "input": {
+        "arguments": [
+          "--credentials-file",
+          "separated-value-19",
+          "--mode",
+          "safe"
+        ],
+        "custom_values": [],
+        "executable": "tool",
+        "kind": "command",
+        "path": null
+      },
+      "secrets": [
+        "separated-value-19"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "joined_secret_key",
+      "expected": {
+        "argument_digest_present": [
+          false,
+          true
+        ],
+        "argument_displays": [
+          "--password=[redacted]",
+          "--mode=safe"
+        ],
+        "executable_display": "tool",
+        "path_display": null,
+        "redacted_arguments": 1,
+        "redacted_path_components": 0
+      },
+      "id": "joined-secret-key-00",
+      "input": {
+        "arguments": [
+          "--password=joined-value-00",
+          "--mode=safe"
+        ],
+        "custom_values": [],
+        "executable": "tool",
+        "kind": "command",
+        "path": null
+      },
+      "secrets": [
+        "joined-value-00"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "joined_secret_key",
+      "expected": {
+        "argument_digest_present": [
+          false,
+          true
+        ],
+        "argument_displays": [
+          "--passwd=[redacted]",
+          "--mode=safe"
+        ],
+        "executable_display": "tool",
+        "path_display": null,
+        "redacted_arguments": 1,
+        "redacted_path_components": 0
+      },
+      "id": "joined-secret-key-01",
+      "input": {
+        "arguments": [
+          "--passwd=joined-value-01",
+          "--mode=safe"
+        ],
+        "custom_values": [],
+        "executable": "tool",
+        "kind": "command",
+        "path": null
+      },
+      "secrets": [
+        "joined-value-01"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "joined_secret_key",
+      "expected": {
+        "argument_digest_present": [
+          false,
+          true
+        ],
+        "argument_displays": [
+          "--token=[redacted]",
+          "--mode=safe"
+        ],
+        "executable_display": "tool",
+        "path_display": null,
+        "redacted_arguments": 1,
+        "redacted_path_components": 0
+      },
+      "id": "joined-secret-key-02",
+      "input": {
+        "arguments": [
+          "--token=joined-value-02",
+          "--mode=safe"
+        ],
+        "custom_values": [],
+        "executable": "tool",
+        "kind": "command",
+        "path": null
+      },
+      "secrets": [
+        "joined-value-02"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "joined_secret_key",
+      "expected": {
+        "argument_digest_present": [
+          false,
+          true
+        ],
+        "argument_displays": [
+          "--access-token=[redacted]",
+          "--mode=safe"
+        ],
+        "executable_display": "tool",
+        "path_display": null,
+        "redacted_arguments": 1,
+        "redacted_path_components": 0
+      },
+      "id": "joined-secret-key-03",
+      "input": {
+        "arguments": [
+          "--access-token=joined-value-03",
+          "--mode=safe"
+        ],
+        "custom_values": [],
+        "executable": "tool",
+        "kind": "command",
+        "path": null
+      },
+      "secrets": [
+        "joined-value-03"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "joined_secret_key",
+      "expected": {
+        "argument_digest_present": [
+          false,
+          true
+        ],
+        "argument_displays": [
+          "--refresh_token=[redacted]",
+          "--mode=safe"
+        ],
+        "executable_display": "tool",
+        "path_display": null,
+        "redacted_arguments": 1,
+        "redacted_path_components": 0
+      },
+      "id": "joined-secret-key-04",
+      "input": {
+        "arguments": [
+          "--refresh_token=joined-value-04",
+          "--mode=safe"
+        ],
+        "custom_values": [],
+        "executable": "tool",
+        "kind": "command",
+        "path": null
+      },
+      "secrets": [
+        "joined-value-04"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "joined_secret_key",
+      "expected": {
+        "argument_digest_present": [
+          false,
+          true
+        ],
+        "argument_displays": [
+          "--client.secret=[redacted]",
+          "--mode=safe"
+        ],
+        "executable_display": "tool",
+        "path_display": null,
+        "redacted_arguments": 1,
+        "redacted_path_components": 0
+      },
+      "id": "joined-secret-key-05",
+      "input": {
+        "arguments": [
+          "--client.secret=joined-value-05",
+          "--mode=safe"
+        ],
+        "custom_values": [],
+        "executable": "tool",
+        "kind": "command",
+        "path": null
+      },
+      "secrets": [
+        "joined-value-05"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "joined_secret_key",
+      "expected": {
+        "argument_digest_present": [
+          false,
+          true
+        ],
+        "argument_displays": [
+          "--credential=[redacted]",
+          "--mode=safe"
+        ],
+        "executable_display": "tool",
+        "path_display": null,
+        "redacted_arguments": 1,
+        "redacted_path_components": 0
+      },
+      "id": "joined-secret-key-06",
+      "input": {
+        "arguments": [
+          "--credential=joined-value-06",
+          "--mode=safe"
+        ],
+        "custom_values": [],
+        "executable": "tool",
+        "kind": "command",
+        "path": null
+      },
+      "secrets": [
+        "joined-value-06"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "joined_secret_key",
+      "expected": {
+        "argument_digest_present": [
+          false,
+          true
+        ],
+        "argument_displays": [
+          "--api-key=[redacted]",
+          "--mode=safe"
+        ],
+        "executable_display": "tool",
+        "path_display": null,
+        "redacted_arguments": 1,
+        "redacted_path_components": 0
+      },
+      "id": "joined-secret-key-07",
+      "input": {
+        "arguments": [
+          "--api-key=joined-value-07",
+          "--mode=safe"
+        ],
+        "custom_values": [],
+        "executable": "tool",
+        "kind": "command",
+        "path": null
+      },
+      "secrets": [
+        "joined-value-07"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "joined_secret_key",
+      "expected": {
+        "argument_digest_present": [
+          false,
+          true
+        ],
+        "argument_displays": [
+          "--api_key=[redacted]",
+          "--mode=safe"
+        ],
+        "executable_display": "tool",
+        "path_display": null,
+        "redacted_arguments": 1,
+        "redacted_path_components": 0
+      },
+      "id": "joined-secret-key-08",
+      "input": {
+        "arguments": [
+          "--api_key=joined-value-08",
+          "--mode=safe"
+        ],
+        "custom_values": [],
+        "executable": "tool",
+        "kind": "command",
+        "path": null
+      },
+      "secrets": [
+        "joined-value-08"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "joined_secret_key",
+      "expected": {
+        "argument_digest_present": [
+          false,
+          true
+        ],
+        "argument_displays": [
+          "--private-key=[redacted]",
+          "--mode=safe"
+        ],
+        "executable_display": "tool",
+        "path_display": null,
+        "redacted_arguments": 1,
+        "redacted_path_components": 0
+      },
+      "id": "joined-secret-key-09",
+      "input": {
+        "arguments": [
+          "--private-key=joined-value-09",
+          "--mode=safe"
+        ],
+        "custom_values": [],
+        "executable": "tool",
+        "kind": "command",
+        "path": null
+      },
+      "secrets": [
+        "joined-value-09"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "joined_secret_key",
+      "expected": {
+        "argument_digest_present": [
+          false,
+          true
+        ],
+        "argument_displays": [
+          "--private_key=[redacted]",
+          "--mode=safe"
+        ],
+        "executable_display": "tool",
+        "path_display": null,
+        "redacted_arguments": 1,
+        "redacted_path_components": 0
+      },
+      "id": "joined-secret-key-10",
+      "input": {
+        "arguments": [
+          "--private_key=joined-value-10",
+          "--mode=safe"
+        ],
+        "custom_values": [],
+        "executable": "tool",
+        "kind": "command",
+        "path": null
+      },
+      "secrets": [
+        "joined-value-10"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "joined_secret_key",
+      "expected": {
+        "argument_digest_present": [
+          false,
+          true
+        ],
+        "argument_displays": [
+          "--authorization=[redacted]",
+          "--mode=safe"
+        ],
+        "executable_display": "tool",
+        "path_display": null,
+        "redacted_arguments": 1,
+        "redacted_path_components": 0
+      },
+      "id": "joined-secret-key-11",
+      "input": {
+        "arguments": [
+          "--authorization=joined-value-11",
+          "--mode=safe"
+        ],
+        "custom_values": [],
+        "executable": "tool",
+        "kind": "command",
+        "path": null
+      },
+      "secrets": [
+        "joined-value-11"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "joined_secret_key",
+      "expected": {
+        "argument_digest_present": [
+          false,
+          true
+        ],
+        "argument_displays": [
+          "--cookie=[redacted]",
+          "--mode=safe"
+        ],
+        "executable_display": "tool",
+        "path_display": null,
+        "redacted_arguments": 1,
+        "redacted_path_components": 0
+      },
+      "id": "joined-secret-key-12",
+      "input": {
+        "arguments": [
+          "--cookie=joined-value-12",
+          "--mode=safe"
+        ],
+        "custom_values": [],
+        "executable": "tool",
+        "kind": "command",
+        "path": null
+      },
+      "secrets": [
+        "joined-value-12"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "joined_secret_key",
+      "expected": {
+        "argument_digest_present": [
+          false,
+          true
+        ],
+        "argument_displays": [
+          "--session-token=[redacted]",
+          "--mode=safe"
+        ],
+        "executable_display": "tool",
+        "path_display": null,
+        "redacted_arguments": 1,
+        "redacted_path_components": 0
+      },
+      "id": "joined-secret-key-13",
+      "input": {
+        "arguments": [
+          "--session-token=joined-value-13",
+          "--mode=safe"
+        ],
+        "custom_values": [],
+        "executable": "tool",
+        "kind": "command",
+        "path": null
+      },
+      "secrets": [
+        "joined-value-13"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "joined_secret_key",
+      "expected": {
+        "argument_digest_present": [
+          false,
+          true
+        ],
+        "argument_displays": [
+          "--db-password=[redacted]",
+          "--mode=safe"
+        ],
+        "executable_display": "tool",
+        "path_display": null,
+        "redacted_arguments": 1,
+        "redacted_path_components": 0
+      },
+      "id": "joined-secret-key-14",
+      "input": {
+        "arguments": [
+          "--db-password=joined-value-14",
+          "--mode=safe"
+        ],
+        "custom_values": [],
+        "executable": "tool",
+        "kind": "command",
+        "path": null
+      },
+      "secrets": [
+        "joined-value-14"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "joined_secret_key",
+      "expected": {
+        "argument_digest_present": [
+          false,
+          true
+        ],
+        "argument_displays": [
+          "--github.token=[redacted]",
+          "--mode=safe"
+        ],
+        "executable_display": "tool",
+        "path_display": null,
+        "redacted_arguments": 1,
+        "redacted_path_components": 0
+      },
+      "id": "joined-secret-key-15",
+      "input": {
+        "arguments": [
+          "--github.token=joined-value-15",
+          "--mode=safe"
+        ],
+        "custom_values": [],
+        "executable": "tool",
+        "kind": "command",
+        "path": null
+      },
+      "secrets": [
+        "joined-value-15"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "joined_secret_key",
+      "expected": {
+        "argument_digest_present": [
+          false,
+          true
+        ],
+        "argument_displays": [
+          "--secret=[redacted]",
+          "--mode=safe"
+        ],
+        "executable_display": "tool",
+        "path_display": null,
+        "redacted_arguments": 1,
+        "redacted_path_components": 0
+      },
+      "id": "joined-secret-key-16",
+      "input": {
+        "arguments": [
+          "--secret=joined-value-16",
+          "--mode=safe"
+        ],
+        "custom_values": [],
+        "executable": "tool",
+        "kind": "command",
+        "path": null
+      },
+      "secrets": [
+        "joined-value-16"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "joined_secret_key",
+      "expected": {
+        "argument_digest_present": [
+          false,
+          true
+        ],
+        "argument_displays": [
+          "--secret-key=[redacted]",
+          "--mode=safe"
+        ],
+        "executable_display": "tool",
+        "path_display": null,
+        "redacted_arguments": 1,
+        "redacted_path_components": 0
+      },
+      "id": "joined-secret-key-17",
+      "input": {
+        "arguments": [
+          "--secret-key=joined-value-17",
+          "--mode=safe"
+        ],
+        "custom_values": [],
+        "executable": "tool",
+        "kind": "command",
+        "path": null
+      },
+      "secrets": [
+        "joined-value-17"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "joined_secret_key",
+      "expected": {
+        "argument_digest_present": [
+          false,
+          true
+        ],
+        "argument_displays": [
+          "--auth-token=[redacted]",
+          "--mode=safe"
+        ],
+        "executable_display": "tool",
+        "path_display": null,
+        "redacted_arguments": 1,
+        "redacted_path_components": 0
+      },
+      "id": "joined-secret-key-18",
+      "input": {
+        "arguments": [
+          "--auth-token=joined-value-18",
+          "--mode=safe"
+        ],
+        "custom_values": [],
+        "executable": "tool",
+        "kind": "command",
+        "path": null
+      },
+      "secrets": [
+        "joined-value-18"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "joined_secret_key",
+      "expected": {
+        "argument_digest_present": [
+          false,
+          true
+        ],
+        "argument_displays": [
+          "--credentials-file=[redacted]",
+          "--mode=safe"
+        ],
+        "executable_display": "tool",
+        "path_display": null,
+        "redacted_arguments": 1,
+        "redacted_path_components": 0
+      },
+      "id": "joined-secret-key-19",
+      "input": {
+        "arguments": [
+          "--credentials-file=joined-value-19",
+          "--mode=safe"
+        ],
+        "custom_values": [],
+        "executable": "tool",
+        "kind": "command",
+        "path": null
+      },
+      "secrets": [
+        "joined-value-19"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "url_userinfo",
+      "expected": {
+        "argument_digest_present": [
+          false
+        ],
+        "argument_displays": [
+          "https://[redacted]@host00.example.test:8443/artifact"
+        ],
+        "executable_display": "tool",
+        "path_display": null,
+        "redacted_arguments": 1,
+        "redacted_path_components": 0
+      },
+      "id": "url-userinfo-00",
+      "input": {
+        "arguments": [
+          "https://user00:pass00@host00.example.test:8443/artifact"
+        ],
+        "custom_values": [],
+        "executable": "tool",
+        "kind": "command",
+        "path": null
+      },
+      "secrets": [
+        "user00:pass00"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "url_userinfo",
+      "expected": {
+        "argument_digest_present": [
+          false
+        ],
+        "argument_displays": [
+          "http://[redacted]@host01.example.test/artifact"
+        ],
+        "executable_display": "tool",
+        "path_display": null,
+        "redacted_arguments": 1,
+        "redacted_path_components": 0
+      },
+      "id": "url-userinfo-01",
+      "input": {
+        "arguments": [
+          "http://user01:pass01@host01.example.test/artifact"
+        ],
+        "custom_values": [],
+        "executable": "tool",
+        "kind": "command",
+        "path": null
+      },
+      "secrets": [
+        "user01:pass01"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "url_userinfo",
+      "expected": {
+        "argument_digest_present": [
+          false
+        ],
+        "argument_displays": [
+          "https://[redacted]@host02.example.test/artifact"
+        ],
+        "executable_display": "tool",
+        "path_display": null,
+        "redacted_arguments": 1,
+        "redacted_path_components": 0
+      },
+      "id": "url-userinfo-02",
+      "input": {
+        "arguments": [
+          "https://user02:pass02@host02.example.test/artifact"
+        ],
+        "custom_values": [],
+        "executable": "tool",
+        "kind": "command",
+        "path": null
+      },
+      "secrets": [
+        "user02:pass02"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "url_userinfo",
+      "expected": {
+        "argument_digest_present": [
+          false
+        ],
+        "argument_displays": [
+          "http://[redacted]@host03.example.test:8446/artifact"
+        ],
+        "executable_display": "tool",
+        "path_display": null,
+        "redacted_arguments": 1,
+        "redacted_path_components": 0
+      },
+      "id": "url-userinfo-03",
+      "input": {
+        "arguments": [
+          "http://user03:pass03@host03.example.test:8446/artifact"
+        ],
+        "custom_values": [],
+        "executable": "tool",
+        "kind": "command",
+        "path": null
+      },
+      "secrets": [
+        "user03:pass03"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "url_userinfo",
+      "expected": {
+        "argument_digest_present": [
+          false
+        ],
+        "argument_displays": [
+          "https://[redacted]@host04.example.test/artifact"
+        ],
+        "executable_display": "tool",
+        "path_display": null,
+        "redacted_arguments": 1,
+        "redacted_path_components": 0
+      },
+      "id": "url-userinfo-04",
+      "input": {
+        "arguments": [
+          "https://user04:pass04@host04.example.test/artifact"
+        ],
+        "custom_values": [],
+        "executable": "tool",
+        "kind": "command",
+        "path": null
+      },
+      "secrets": [
+        "user04:pass04"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "url_userinfo",
+      "expected": {
+        "argument_digest_present": [
+          false
+        ],
+        "argument_displays": [
+          "http://[redacted]@host05.example.test/artifact"
+        ],
+        "executable_display": "tool",
+        "path_display": null,
+        "redacted_arguments": 1,
+        "redacted_path_components": 0
+      },
+      "id": "url-userinfo-05",
+      "input": {
+        "arguments": [
+          "http://user05:pass05@host05.example.test/artifact"
+        ],
+        "custom_values": [],
+        "executable": "tool",
+        "kind": "command",
+        "path": null
+      },
+      "secrets": [
+        "user05:pass05"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "url_userinfo",
+      "expected": {
+        "argument_digest_present": [
+          false
+        ],
+        "argument_displays": [
+          "https://[redacted]@host06.example.test:8449/artifact"
+        ],
+        "executable_display": "tool",
+        "path_display": null,
+        "redacted_arguments": 1,
+        "redacted_path_components": 0
+      },
+      "id": "url-userinfo-06",
+      "input": {
+        "arguments": [
+          "https://user06:pass06@host06.example.test:8449/artifact"
+        ],
+        "custom_values": [],
+        "executable": "tool",
+        "kind": "command",
+        "path": null
+      },
+      "secrets": [
+        "user06:pass06"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "url_userinfo",
+      "expected": {
+        "argument_digest_present": [
+          false
+        ],
+        "argument_displays": [
+          "http://[redacted]@host07.example.test/artifact"
+        ],
+        "executable_display": "tool",
+        "path_display": null,
+        "redacted_arguments": 1,
+        "redacted_path_components": 0
+      },
+      "id": "url-userinfo-07",
+      "input": {
+        "arguments": [
+          "http://user07:pass07@host07.example.test/artifact"
+        ],
+        "custom_values": [],
+        "executable": "tool",
+        "kind": "command",
+        "path": null
+      },
+      "secrets": [
+        "user07:pass07"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "url_userinfo",
+      "expected": {
+        "argument_digest_present": [
+          false
+        ],
+        "argument_displays": [
+          "https://[redacted]@host08.example.test/artifact"
+        ],
+        "executable_display": "tool",
+        "path_display": null,
+        "redacted_arguments": 1,
+        "redacted_path_components": 0
+      },
+      "id": "url-userinfo-08",
+      "input": {
+        "arguments": [
+          "https://user08:pass08@host08.example.test/artifact"
+        ],
+        "custom_values": [],
+        "executable": "tool",
+        "kind": "command",
+        "path": null
+      },
+      "secrets": [
+        "user08:pass08"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "url_userinfo",
+      "expected": {
+        "argument_digest_present": [
+          false
+        ],
+        "argument_displays": [
+          "http://[redacted]@host09.example.test:8452/artifact"
+        ],
+        "executable_display": "tool",
+        "path_display": null,
+        "redacted_arguments": 1,
+        "redacted_path_components": 0
+      },
+      "id": "url-userinfo-09",
+      "input": {
+        "arguments": [
+          "http://user09:pass09@host09.example.test:8452/artifact"
+        ],
+        "custom_values": [],
+        "executable": "tool",
+        "kind": "command",
+        "path": null
+      },
+      "secrets": [
+        "user09:pass09"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "url_userinfo",
+      "expected": {
+        "argument_digest_present": [
+          false
+        ],
+        "argument_displays": [
+          "https://[redacted]@host10.example.test/artifact"
+        ],
+        "executable_display": "tool",
+        "path_display": null,
+        "redacted_arguments": 1,
+        "redacted_path_components": 0
+      },
+      "id": "url-userinfo-10",
+      "input": {
+        "arguments": [
+          "https://user10:pass10@host10.example.test/artifact"
+        ],
+        "custom_values": [],
+        "executable": "tool",
+        "kind": "command",
+        "path": null
+      },
+      "secrets": [
+        "user10:pass10"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "url_userinfo",
+      "expected": {
+        "argument_digest_present": [
+          false
+        ],
+        "argument_displays": [
+          "http://[redacted]@host11.example.test/artifact"
+        ],
+        "executable_display": "tool",
+        "path_display": null,
+        "redacted_arguments": 1,
+        "redacted_path_components": 0
+      },
+      "id": "url-userinfo-11",
+      "input": {
+        "arguments": [
+          "http://user11:pass11@host11.example.test/artifact"
+        ],
+        "custom_values": [],
+        "executable": "tool",
+        "kind": "command",
+        "path": null
+      },
+      "secrets": [
+        "user11:pass11"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "url_query",
+      "expected": {
+        "argument_digest_present": [
+          false
+        ],
+        "argument_displays": [
+          "https://query00.example.test/path?[redacted-query]"
+        ],
+        "executable_display": "tool",
+        "path_display": null,
+        "redacted_arguments": 1,
+        "redacted_path_components": 0
+      },
+      "id": "url-query-00",
+      "input": {
+        "arguments": [
+          "https://query00.example.test/path?item=qv-00"
+        ],
+        "custom_values": [],
+        "executable": "tool",
+        "kind": "command",
+        "path": null
+      },
+      "secrets": [
+        "qv-00"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "url_query",
+      "expected": {
+        "argument_digest_present": [
+          false
+        ],
+        "argument_displays": [
+          "https://query01.example.test?[redacted-query]"
+        ],
+        "executable_display": "tool",
+        "path_display": null,
+        "redacted_arguments": 1,
+        "redacted_path_components": 0
+      },
+      "id": "url-query-01",
+      "input": {
+        "arguments": [
+          "https://query01.example.test?item=qv-01"
+        ],
+        "custom_values": [],
+        "executable": "tool",
+        "kind": "command",
+        "path": null
+      },
+      "secrets": [
+        "qv-01"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "url_query",
+      "expected": {
+        "argument_digest_present": [
+          false
+        ],
+        "argument_displays": [
+          "https://query02.example.test/path?[redacted-query]"
+        ],
+        "executable_display": "tool",
+        "path_display": null,
+        "redacted_arguments": 1,
+        "redacted_path_components": 0
+      },
+      "id": "url-query-02",
+      "input": {
+        "arguments": [
+          "https://query02.example.test/path?item=qv-02"
+        ],
+        "custom_values": [],
+        "executable": "tool",
+        "kind": "command",
+        "path": null
+      },
+      "secrets": [
+        "qv-02"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "url_query",
+      "expected": {
+        "argument_digest_present": [
+          false
+        ],
+        "argument_displays": [
+          "https://query03.example.test?[redacted-query]"
+        ],
+        "executable_display": "tool",
+        "path_display": null,
+        "redacted_arguments": 1,
+        "redacted_path_components": 0
+      },
+      "id": "url-query-03",
+      "input": {
+        "arguments": [
+          "https://query03.example.test?item=qv-03"
+        ],
+        "custom_values": [],
+        "executable": "tool",
+        "kind": "command",
+        "path": null
+      },
+      "secrets": [
+        "qv-03"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "url_query",
+      "expected": {
+        "argument_digest_present": [
+          false
+        ],
+        "argument_displays": [
+          "https://query04.example.test/path?[redacted-query]"
+        ],
+        "executable_display": "tool",
+        "path_display": null,
+        "redacted_arguments": 1,
+        "redacted_path_components": 0
+      },
+      "id": "url-query-04",
+      "input": {
+        "arguments": [
+          "https://query04.example.test/path?item=qv-04"
+        ],
+        "custom_values": [],
+        "executable": "tool",
+        "kind": "command",
+        "path": null
+      },
+      "secrets": [
+        "qv-04"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "url_query",
+      "expected": {
+        "argument_digest_present": [
+          false
+        ],
+        "argument_displays": [
+          "https://query05.example.test?[redacted-query]"
+        ],
+        "executable_display": "tool",
+        "path_display": null,
+        "redacted_arguments": 1,
+        "redacted_path_components": 0
+      },
+      "id": "url-query-05",
+      "input": {
+        "arguments": [
+          "https://query05.example.test?item=qv-05"
+        ],
+        "custom_values": [],
+        "executable": "tool",
+        "kind": "command",
+        "path": null
+      },
+      "secrets": [
+        "qv-05"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "url_query",
+      "expected": {
+        "argument_digest_present": [
+          false
+        ],
+        "argument_displays": [
+          "https://query06.example.test/path?[redacted-query]"
+        ],
+        "executable_display": "tool",
+        "path_display": null,
+        "redacted_arguments": 1,
+        "redacted_path_components": 0
+      },
+      "id": "url-query-06",
+      "input": {
+        "arguments": [
+          "https://query06.example.test/path?item=qv-06#anchor-06"
+        ],
+        "custom_values": [],
+        "executable": "tool",
+        "kind": "command",
+        "path": null
+      },
+      "secrets": [
+        "qv-06"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "url_query",
+      "expected": {
+        "argument_digest_present": [
+          false
+        ],
+        "argument_displays": [
+          "https://query07.example.test?[redacted-query]"
+        ],
+        "executable_display": "tool",
+        "path_display": null,
+        "redacted_arguments": 1,
+        "redacted_path_components": 0
+      },
+      "id": "url-query-07",
+      "input": {
+        "arguments": [
+          "https://query07.example.test?item=qv-07#anchor-07"
+        ],
+        "custom_values": [],
+        "executable": "tool",
+        "kind": "command",
+        "path": null
+      },
+      "secrets": [
+        "qv-07"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "url_query",
+      "expected": {
+        "argument_digest_present": [
+          false
+        ],
+        "argument_displays": [
+          "https://query08.example.test/path?[redacted-query]"
+        ],
+        "executable_display": "tool",
+        "path_display": null,
+        "redacted_arguments": 1,
+        "redacted_path_components": 0
+      },
+      "id": "url-query-08",
+      "input": {
+        "arguments": [
+          "https://query08.example.test/path?item=qv-08#anchor-08"
+        ],
+        "custom_values": [],
+        "executable": "tool",
+        "kind": "command",
+        "path": null
+      },
+      "secrets": [
+        "qv-08"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "url_query",
+      "expected": {
+        "argument_digest_present": [
+          false
+        ],
+        "argument_displays": [
+          "https://query09.example.test?[redacted-query]"
+        ],
+        "executable_display": "tool",
+        "path_display": null,
+        "redacted_arguments": 1,
+        "redacted_path_components": 0
+      },
+      "id": "url-query-09",
+      "input": {
+        "arguments": [
+          "https://query09.example.test?item=qv-09#anchor-09"
+        ],
+        "custom_values": [],
+        "executable": "tool",
+        "kind": "command",
+        "path": null
+      },
+      "secrets": [
+        "qv-09"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "url_query",
+      "expected": {
+        "argument_digest_present": [
+          false
+        ],
+        "argument_displays": [
+          "https://query10.example.test/path?[redacted-query]"
+        ],
+        "executable_display": "tool",
+        "path_display": null,
+        "redacted_arguments": 1,
+        "redacted_path_components": 0
+      },
+      "id": "url-query-10",
+      "input": {
+        "arguments": [
+          "https://query10.example.test/path?item=qv-10#anchor-10"
+        ],
+        "custom_values": [],
+        "executable": "tool",
+        "kind": "command",
+        "path": null
+      },
+      "secrets": [
+        "qv-10"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "url_query",
+      "expected": {
+        "argument_digest_present": [
+          false
+        ],
+        "argument_displays": [
+          "https://query11.example.test?[redacted-query]"
+        ],
+        "executable_display": "tool",
+        "path_display": null,
+        "redacted_arguments": 1,
+        "redacted_path_components": 0
+      },
+      "id": "url-query-11",
+      "input": {
+        "arguments": [
+          "https://query11.example.test?item=qv-11#anchor-11"
+        ],
+        "custom_values": [],
+        "executable": "tool",
+        "kind": "command",
+        "path": null
+      },
+      "secrets": [
+        "qv-11"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "url_fragment",
+      "expected": {
+        "argument_digest_present": [
+          false
+        ],
+        "argument_displays": [
+          "https://fragment00.example.test/path#[redacted-fragment]"
+        ],
+        "executable_display": "tool",
+        "path_display": null,
+        "redacted_arguments": 1,
+        "redacted_path_components": 0
+      },
+      "id": "url-fragment-00",
+      "input": {
+        "arguments": [
+          "https://fragment00.example.test/path#fragment-value-00"
+        ],
+        "custom_values": [],
+        "executable": "tool",
+        "kind": "command",
+        "path": null
+      },
+      "secrets": [
+        "fragment-value-00"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "url_fragment",
+      "expected": {
+        "argument_digest_present": [
+          false
+        ],
+        "argument_displays": [
+          "https://fragment01.example.test/path#[redacted-fragment]"
+        ],
+        "executable_display": "tool",
+        "path_display": null,
+        "redacted_arguments": 1,
+        "redacted_path_components": 0
+      },
+      "id": "url-fragment-01",
+      "input": {
+        "arguments": [
+          "https://fragment01.example.test/path#fragment-value-01"
+        ],
+        "custom_values": [],
+        "executable": "tool",
+        "kind": "command",
+        "path": null
+      },
+      "secrets": [
+        "fragment-value-01"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "url_fragment",
+      "expected": {
+        "argument_digest_present": [
+          false
+        ],
+        "argument_displays": [
+          "https://fragment02.example.test/path#[redacted-fragment]"
+        ],
+        "executable_display": "tool",
+        "path_display": null,
+        "redacted_arguments": 1,
+        "redacted_path_components": 0
+      },
+      "id": "url-fragment-02",
+      "input": {
+        "arguments": [
+          "https://fragment02.example.test/path#fragment-value-02"
+        ],
+        "custom_values": [],
+        "executable": "tool",
+        "kind": "command",
+        "path": null
+      },
+      "secrets": [
+        "fragment-value-02"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "url_fragment",
+      "expected": {
+        "argument_digest_present": [
+          false
+        ],
+        "argument_displays": [
+          "https://fragment03.example.test/path#[redacted-fragment]"
+        ],
+        "executable_display": "tool",
+        "path_display": null,
+        "redacted_arguments": 1,
+        "redacted_path_components": 0
+      },
+      "id": "url-fragment-03",
+      "input": {
+        "arguments": [
+          "https://fragment03.example.test/path#fragment-value-03"
+        ],
+        "custom_values": [],
+        "executable": "tool",
+        "kind": "command",
+        "path": null
+      },
+      "secrets": [
+        "fragment-value-03"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "url_fragment",
+      "expected": {
+        "argument_digest_present": [
+          false
+        ],
+        "argument_displays": [
+          "https://fragment04.example.test/path#[redacted-fragment]"
+        ],
+        "executable_display": "tool",
+        "path_display": null,
+        "redacted_arguments": 1,
+        "redacted_path_components": 0
+      },
+      "id": "url-fragment-04",
+      "input": {
+        "arguments": [
+          "https://fragment04.example.test/path#fragment-value-04"
+        ],
+        "custom_values": [],
+        "executable": "tool",
+        "kind": "command",
+        "path": null
+      },
+      "secrets": [
+        "fragment-value-04"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "url_fragment",
+      "expected": {
+        "argument_digest_present": [
+          false
+        ],
+        "argument_displays": [
+          "https://fragment05.example.test/path#[redacted-fragment]"
+        ],
+        "executable_display": "tool",
+        "path_display": null,
+        "redacted_arguments": 1,
+        "redacted_path_components": 0
+      },
+      "id": "url-fragment-05",
+      "input": {
+        "arguments": [
+          "https://fragment05.example.test/path#fragment-value-05"
+        ],
+        "custom_values": [],
+        "executable": "tool",
+        "kind": "command",
+        "path": null
+      },
+      "secrets": [
+        "fragment-value-05"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "url_fragment",
+      "expected": {
+        "argument_digest_present": [
+          false
+        ],
+        "argument_displays": [
+          "https://fragment06.example.test/path#[redacted-fragment]"
+        ],
+        "executable_display": "tool",
+        "path_display": null,
+        "redacted_arguments": 1,
+        "redacted_path_components": 0
+      },
+      "id": "url-fragment-06",
+      "input": {
+        "arguments": [
+          "https://fragment06.example.test/path#fragment-value-06"
+        ],
+        "custom_values": [],
+        "executable": "tool",
+        "kind": "command",
+        "path": null
+      },
+      "secrets": [
+        "fragment-value-06"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "url_fragment",
+      "expected": {
+        "argument_digest_present": [
+          false
+        ],
+        "argument_displays": [
+          "https://fragment07.example.test/path#[redacted-fragment]"
+        ],
+        "executable_display": "tool",
+        "path_display": null,
+        "redacted_arguments": 1,
+        "redacted_path_components": 0
+      },
+      "id": "url-fragment-07",
+      "input": {
+        "arguments": [
+          "https://fragment07.example.test/path#fragment-value-07"
+        ],
+        "custom_values": [],
+        "executable": "tool",
+        "kind": "command",
+        "path": null
+      },
+      "secrets": [
+        "fragment-value-07"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "sensitive_path",
+      "expected": {
+        "argument_digest_present": [],
+        "argument_displays": [],
+        "executable_display": null,
+        "path_display": "config/[redacted_e9cbb022]/artifact.txt",
+        "redacted_arguments": 0,
+        "redacted_path_components": 1
+      },
+      "id": "sensitive-path-00",
+      "input": {
+        "arguments": [],
+        "custom_values": [],
+        "executable": "",
+        "kind": "path",
+        "path": "config/.env/artifact.txt"
+      },
+      "secrets": [
+        ".env"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "sensitive_path",
+      "expected": {
+        "argument_digest_present": [],
+        "argument_displays": [],
+        "executable_display": null,
+        "path_display": "config/[redacted_48f73ea2]/artifact.txt",
+        "redacted_arguments": 0,
+        "redacted_path_components": 1
+      },
+      "id": "sensitive-path-01",
+      "input": {
+        "arguments": [],
+        "custom_values": [],
+        "executable": "",
+        "kind": "path",
+        "path": "config/.env.production/artifact.txt"
+      },
+      "secrets": [
+        ".env.production"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "sensitive_path",
+      "expected": {
+        "argument_digest_present": [],
+        "argument_displays": [],
+        "executable_display": null,
+        "path_display": "config/[redacted_3dbcc63d]/artifact.txt",
+        "redacted_arguments": 0,
+        "redacted_path_components": 1
+      },
+      "id": "sensitive-path-02",
+      "input": {
+        "arguments": [],
+        "custom_values": [],
+        "executable": "",
+        "kind": "path",
+        "path": "config/password.txt/artifact.txt"
+      },
+      "secrets": [
+        "password.txt"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "sensitive_path",
+      "expected": {
+        "argument_digest_present": [],
+        "argument_displays": [],
+        "executable_display": null,
+        "path_display": "config/[redacted_6c1ccf44]/artifact.txt",
+        "redacted_arguments": 0,
+        "redacted_path_components": 1
+      },
+      "id": "sensitive-path-03",
+      "input": {
+        "arguments": [],
+        "custom_values": [],
+        "executable": "",
+        "kind": "path",
+        "path": "config/passwd.backup/artifact.txt"
+      },
+      "secrets": [
+        "passwd.backup"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "sensitive_path",
+      "expected": {
+        "argument_digest_present": [],
+        "argument_displays": [],
+        "executable_display": null,
+        "path_display": "config/[redacted_cffc03de]/artifact.txt",
+        "redacted_arguments": 0,
+        "redacted_path_components": 1
+      },
+      "id": "sensitive-path-04",
+      "input": {
+        "arguments": [],
+        "custom_values": [],
+        "executable": "",
+        "kind": "path",
+        "path": "config/credentials.json/artifact.txt"
+      },
+      "secrets": [
+        "credentials.json"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "sensitive_path",
+      "expected": {
+        "argument_digest_present": [],
+        "argument_displays": [],
+        "executable_display": null,
+        "path_display": "config/[redacted_cd9784ba]/artifact.txt",
+        "redacted_arguments": 0,
+        "redacted_path_components": 1
+      },
+      "id": "sensitive-path-05",
+      "input": {
+        "arguments": [],
+        "custom_values": [],
+        "executable": "",
+        "kind": "path",
+        "path": "config/credential-store/artifact.txt"
+      },
+      "secrets": [
+        "credential-store"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "sensitive_path",
+      "expected": {
+        "argument_digest_present": [],
+        "argument_displays": [],
+        "executable_display": null,
+        "path_display": "config/[redacted_72028c56]/artifact.txt",
+        "redacted_arguments": 0,
+        "redacted_path_components": 1
+      },
+      "id": "sensitive-path-06",
+      "input": {
+        "arguments": [],
+        "custom_values": [],
+        "executable": "",
+        "kind": "path",
+        "path": "config/private_key.pem/artifact.txt"
+      },
+      "secrets": [
+        "private_key.pem"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "sensitive_path",
+      "expected": {
+        "argument_digest_present": [],
+        "argument_displays": [],
+        "executable_display": null,
+        "path_display": "config/[redacted_215436d6]/artifact.txt",
+        "redacted_arguments": 0,
+        "redacted_path_components": 1
+      },
+      "id": "sensitive-path-07",
+      "input": {
+        "arguments": [],
+        "custom_values": [],
+        "executable": "",
+        "kind": "path",
+        "path": "config/private-key.txt/artifact.txt"
+      },
+      "secrets": [
+        "private-key.txt"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "sensitive_path",
+      "expected": {
+        "argument_digest_present": [],
+        "argument_displays": [],
+        "executable_display": null,
+        "path_display": "config/[redacted_855a419b]/artifact.txt",
+        "redacted_arguments": 0,
+        "redacted_path_components": 1
+      },
+      "id": "sensitive-path-08",
+      "input": {
+        "arguments": [],
+        "custom_values": [],
+        "executable": "",
+        "kind": "path",
+        "path": "config/api_key.json/artifact.txt"
+      },
+      "secrets": [
+        "api_key.json"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "sensitive_path",
+      "expected": {
+        "argument_digest_present": [],
+        "argument_displays": [],
+        "executable_display": null,
+        "path_display": "config/[redacted_c15a23b7]/artifact.txt",
+        "redacted_arguments": 0,
+        "redacted_path_components": 1
+      },
+      "id": "sensitive-path-09",
+      "input": {
+        "arguments": [],
+        "custom_values": [],
+        "executable": "",
+        "kind": "path",
+        "path": "config/api-key.yaml/artifact.txt"
+      },
+      "secrets": [
+        "api-key.yaml"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "sensitive_path",
+      "expected": {
+        "argument_digest_present": [],
+        "argument_displays": [],
+        "executable_display": null,
+        "path_display": "config/[redacted_24a4c6f0]/artifact.txt",
+        "redacted_arguments": 0,
+        "redacted_path_components": 1
+      },
+      "id": "sensitive-path-10",
+      "input": {
+        "arguments": [],
+        "custom_values": [],
+        "executable": "",
+        "kind": "path",
+        "path": "config/client_secret.txt/artifact.txt"
+      },
+      "secrets": [
+        "client_secret.txt"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "sensitive_path",
+      "expected": {
+        "argument_digest_present": [],
+        "argument_displays": [],
+        "executable_display": null,
+        "path_display": "config/[redacted_4c8ced61]/artifact.txt",
+        "redacted_arguments": 0,
+        "redacted_path_components": 1
+      },
+      "id": "sensitive-path-11",
+      "input": {
+        "arguments": [],
+        "custom_values": [],
+        "executable": "",
+        "kind": "path",
+        "path": "config/secret-config/artifact.txt"
+      },
+      "secrets": [
+        "secret-config"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "sensitive_path",
+      "expected": {
+        "argument_digest_present": [],
+        "argument_displays": [],
+        "executable_display": null,
+        "path_display": "config/[redacted_3fc7eb69]/artifact.txt",
+        "redacted_arguments": 0,
+        "redacted_path_components": 1
+      },
+      "id": "sensitive-path-12",
+      "input": {
+        "arguments": [],
+        "custom_values": [],
+        "executable": "",
+        "kind": "path",
+        "path": "config/server.pem/artifact.txt"
+      },
+      "secrets": [
+        "server.pem"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "sensitive_path",
+      "expected": {
+        "argument_digest_present": [],
+        "argument_displays": [],
+        "executable_display": null,
+        "path_display": "config/[redacted_9b9bd236]/artifact.txt",
+        "redacted_arguments": 0,
+        "redacted_path_components": 1
+      },
+      "id": "sensitive-path-13",
+      "input": {
+        "arguments": [],
+        "custom_values": [],
+        "executable": "",
+        "kind": "path",
+        "path": "config/client.p12/artifact.txt"
+      },
+      "secrets": [
+        "client.p12"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "sensitive_path",
+      "expected": {
+        "argument_digest_present": [],
+        "argument_displays": [],
+        "executable_display": null,
+        "path_display": "config/[redacted_cea47707]/artifact.txt",
+        "redacted_arguments": 0,
+        "redacted_path_components": 1
+      },
+      "id": "sensitive-path-14",
+      "input": {
+        "arguments": [],
+        "custom_values": [],
+        "executable": "",
+        "kind": "path",
+        "path": "config/bundle.pfx/artifact.txt"
+      },
+      "secrets": [
+        "bundle.pfx"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "sensitive_path",
+      "expected": {
+        "argument_digest_present": [],
+        "argument_displays": [],
+        "executable_display": null,
+        "path_display": "config/[redacted_0be64ae8]/artifact.txt",
+        "redacted_arguments": 0,
+        "redacted_path_components": 1
+      },
+      "id": "sensitive-path-15",
+      "input": {
+        "arguments": [],
+        "custom_values": [],
+        "executable": "",
+        "kind": "path",
+        "path": "config/PASSWORD/artifact.txt"
+      },
+      "secrets": [
+        "PASSWORD"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "sensitive_path",
+      "expected": {
+        "argument_digest_present": [],
+        "argument_displays": [],
+        "executable_display": null,
+        "path_display": "config/[redacted_89c94059]/artifact.txt",
+        "redacted_arguments": 0,
+        "redacted_path_components": 1
+      },
+      "id": "sensitive-path-16",
+      "input": {
+        "arguments": [],
+        "custom_values": [],
+        "executable": "",
+        "kind": "path",
+        "path": "config/CREDENTIALS/artifact.txt"
+      },
+      "secrets": [
+        "CREDENTIALS"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "sensitive_path",
+      "expected": {
+        "argument_digest_present": [],
+        "argument_displays": [],
+        "executable_display": null,
+        "path_display": "config/[redacted_8e841b58]/artifact.txt",
+        "redacted_arguments": 0,
+        "redacted_path_components": 1
+      },
+      "id": "sensitive-path-17",
+      "input": {
+        "arguments": [],
+        "custom_values": [],
+        "executable": "",
+        "kind": "path",
+        "path": "config/my-passwd-file/artifact.txt"
+      },
+      "secrets": [
+        "my-passwd-file"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "sensitive_path",
+      "expected": {
+        "argument_digest_present": [],
+        "argument_displays": [],
+        "executable_display": null,
+        "path_display": "config/[redacted_09f474cd]/artifact.txt",
+        "redacted_arguments": 0,
+        "redacted_path_components": 1
+      },
+      "id": "sensitive-path-18",
+      "input": {
+        "arguments": [],
+        "custom_values": [],
+        "executable": "",
+        "kind": "path",
+        "path": "config/service-private_key/artifact.txt"
+      },
+      "secrets": [
+        "service-private_key"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "sensitive_path",
+      "expected": {
+        "argument_digest_present": [],
+        "argument_displays": [],
+        "executable_display": null,
+        "path_display": "config/[redacted_bd285be9]/artifact.txt",
+        "redacted_arguments": 0,
+        "redacted_path_components": 1
+      },
+      "id": "sensitive-path-19",
+      "input": {
+        "arguments": [],
+        "custom_values": [],
+        "executable": "",
+        "kind": "path",
+        "path": "config/oauth-secret/artifact.txt"
+      },
+      "secrets": [
+        "oauth-secret"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "custom_exact_value",
+      "expected": {
+        "argument_digest_present": [
+          false
+        ],
+        "argument_displays": [
+          "prefix-[redacted]-suffix"
+        ],
+        "executable_display": "tool",
+        "path_display": null,
+        "redacted_arguments": 1,
+        "redacted_path_components": 0
+      },
+      "id": "custom-exact-value-00",
+      "input": {
+        "arguments": [
+          "prefix-literal-value-00-suffix"
+        ],
+        "custom_values": [
+          "literal-value-00"
+        ],
+        "executable": "tool",
+        "kind": "command",
+        "path": null
+      },
+      "secrets": [
+        "literal-value-00"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "custom_exact_value",
+      "expected": {
+        "argument_digest_present": [
+          false
+        ],
+        "argument_displays": [
+          "prefix-[redacted]-suffix"
+        ],
+        "executable_display": "tool",
+        "path_display": null,
+        "redacted_arguments": 1,
+        "redacted_path_components": 0
+      },
+      "id": "custom-exact-value-01",
+      "input": {
+        "arguments": [
+          "prefix-literal-value-01-suffix"
+        ],
+        "custom_values": [
+          "literal-value-01"
+        ],
+        "executable": "tool",
+        "kind": "command",
+        "path": null
+      },
+      "secrets": [
+        "literal-value-01"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "custom_exact_value",
+      "expected": {
+        "argument_digest_present": [
+          false
+        ],
+        "argument_displays": [
+          "prefix-[redacted]-suffix"
+        ],
+        "executable_display": "tool",
+        "path_display": null,
+        "redacted_arguments": 1,
+        "redacted_path_components": 0
+      },
+      "id": "custom-exact-value-02",
+      "input": {
+        "arguments": [
+          "prefix-literal-value-02-suffix"
+        ],
+        "custom_values": [
+          "literal-value-02"
+        ],
+        "executable": "tool",
+        "kind": "command",
+        "path": null
+      },
+      "secrets": [
+        "literal-value-02"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "custom_exact_value",
+      "expected": {
+        "argument_digest_present": [
+          false
+        ],
+        "argument_displays": [
+          "prefix-[redacted]-suffix"
+        ],
+        "executable_display": "tool",
+        "path_display": null,
+        "redacted_arguments": 1,
+        "redacted_path_components": 0
+      },
+      "id": "custom-exact-value-03",
+      "input": {
+        "arguments": [
+          "prefix-literal-value-03-suffix"
+        ],
+        "custom_values": [
+          "literal-value-03"
+        ],
+        "executable": "tool",
+        "kind": "command",
+        "path": null
+      },
+      "secrets": [
+        "literal-value-03"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "custom_exact_value",
+      "expected": {
+        "argument_digest_present": [
+          false
+        ],
+        "argument_displays": [
+          "prefix-[redacted]-suffix"
+        ],
+        "executable_display": "tool",
+        "path_display": null,
+        "redacted_arguments": 1,
+        "redacted_path_components": 0
+      },
+      "id": "custom-exact-value-04",
+      "input": {
+        "arguments": [
+          "prefix-literal-value-04-suffix"
+        ],
+        "custom_values": [
+          "literal-value-04"
+        ],
+        "executable": "tool",
+        "kind": "command",
+        "path": null
+      },
+      "secrets": [
+        "literal-value-04"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "custom_exact_value",
+      "expected": {
+        "argument_digest_present": [
+          false
+        ],
+        "argument_displays": [
+          "prefix-[redacted]-suffix"
+        ],
+        "executable_display": "tool",
+        "path_display": null,
+        "redacted_arguments": 1,
+        "redacted_path_components": 0
+      },
+      "id": "custom-exact-value-05",
+      "input": {
+        "arguments": [
+          "prefix-literal-value-05-suffix"
+        ],
+        "custom_values": [
+          "literal-value-05"
+        ],
+        "executable": "tool",
+        "kind": "command",
+        "path": null
+      },
+      "secrets": [
+        "literal-value-05"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "custom_exact_value",
+      "expected": {
+        "argument_digest_present": [
+          false
+        ],
+        "argument_displays": [
+          "prefix-[redacted]-suffix"
+        ],
+        "executable_display": "tool",
+        "path_display": null,
+        "redacted_arguments": 1,
+        "redacted_path_components": 0
+      },
+      "id": "custom-exact-value-06",
+      "input": {
+        "arguments": [
+          "prefix-literal-value-06-suffix"
+        ],
+        "custom_values": [
+          "literal-value-06"
+        ],
+        "executable": "tool",
+        "kind": "command",
+        "path": null
+      },
+      "secrets": [
+        "literal-value-06"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "custom_exact_value",
+      "expected": {
+        "argument_digest_present": [
+          false
+        ],
+        "argument_displays": [
+          "prefix-[redacted]-suffix"
+        ],
+        "executable_display": "tool",
+        "path_display": null,
+        "redacted_arguments": 1,
+        "redacted_path_components": 0
+      },
+      "id": "custom-exact-value-07",
+      "input": {
+        "arguments": [
+          "prefix-literal-value-07-suffix"
+        ],
+        "custom_values": [
+          "literal-value-07"
+        ],
+        "executable": "tool",
+        "kind": "command",
+        "path": null
+      },
+      "secrets": [
+        "literal-value-07"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "custom_exact_value",
+      "expected": {
+        "argument_digest_present": [
+          true,
+          true
+        ],
+        "argument_displays": [
+          "--mode",
+          "safe"
+        ],
+        "executable_display": "runner-[redacted]",
+        "path_display": null,
+        "redacted_arguments": 0,
+        "redacted_path_components": 0
+      },
+      "id": "custom-executable-value-08",
+      "input": {
+        "arguments": [
+          "--mode",
+          "safe"
+        ],
+        "custom_values": [
+          "literal-value-08"
+        ],
+        "executable": "runner-literal-value-08",
+        "kind": "command",
+        "path": null
+      },
+      "secrets": [
+        "literal-value-08"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "custom_exact_value",
+      "expected": {
+        "argument_digest_present": [
+          true,
+          true
+        ],
+        "argument_displays": [
+          "--mode",
+          "safe"
+        ],
+        "executable_display": "runner-[redacted]",
+        "path_display": null,
+        "redacted_arguments": 0,
+        "redacted_path_components": 0
+      },
+      "id": "custom-executable-value-09",
+      "input": {
+        "arguments": [
+          "--mode",
+          "safe"
+        ],
+        "custom_values": [
+          "literal-value-09"
+        ],
+        "executable": "runner-literal-value-09",
+        "kind": "command",
+        "path": null
+      },
+      "secrets": [
+        "literal-value-09"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "custom_exact_value",
+      "expected": {
+        "argument_digest_present": [
+          true,
+          true
+        ],
+        "argument_displays": [
+          "--mode",
+          "safe"
+        ],
+        "executable_display": "runner-[redacted]",
+        "path_display": null,
+        "redacted_arguments": 0,
+        "redacted_path_components": 0
+      },
+      "id": "custom-executable-value-10",
+      "input": {
+        "arguments": [
+          "--mode",
+          "safe"
+        ],
+        "custom_values": [
+          "literal-value-10"
+        ],
+        "executable": "runner-literal-value-10",
+        "kind": "command",
+        "path": null
+      },
+      "secrets": [
+        "literal-value-10"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "custom_exact_value",
+      "expected": {
+        "argument_digest_present": [
+          true,
+          true
+        ],
+        "argument_displays": [
+          "--mode",
+          "safe"
+        ],
+        "executable_display": "runner-[redacted]",
+        "path_display": null,
+        "redacted_arguments": 0,
+        "redacted_path_components": 0
+      },
+      "id": "custom-executable-value-11",
+      "input": {
+        "arguments": [
+          "--mode",
+          "safe"
+        ],
+        "custom_values": [
+          "literal-value-11"
+        ],
+        "executable": "runner-literal-value-11",
+        "kind": "command",
+        "path": null
+      },
+      "secrets": [
+        "literal-value-11"
+      ],
+      "supported_pattern": true
+    },
+    {
+      "category": "benign_command_control",
+      "expected": {
+        "argument_digest_present": [
+          true,
+          true
+        ],
+        "argument_displays": [
+          "--timeout=public-00",
+          "ordinary-value"
+        ],
+        "executable_display": "tool",
+        "path_display": null,
+        "redacted_arguments": 0,
+        "redacted_path_components": 0
+      },
+      "id": "benign-command-00",
+      "input": {
+        "arguments": [
+          "--timeout=public-00",
+          "ordinary-value"
+        ],
+        "custom_values": [],
+        "executable": "tool",
+        "kind": "command",
+        "path": null
+      },
+      "secrets": [],
+      "supported_pattern": false
+    },
+    {
+      "category": "benign_command_control",
+      "expected": {
+        "argument_digest_present": [
+          true,
+          true
+        ],
+        "argument_displays": [
+          "--profile=public-01",
+          "ordinary-value"
+        ],
+        "executable_display": "tool",
+        "path_display": null,
+        "redacted_arguments": 0,
+        "redacted_path_components": 0
+      },
+      "id": "benign-command-01",
+      "input": {
+        "arguments": [
+          "--profile=public-01",
+          "ordinary-value"
+        ],
+        "custom_values": [],
+        "executable": "tool",
+        "kind": "command",
+        "path": null
+      },
+      "secrets": [],
+      "supported_pattern": false
+    },
+    {
+      "category": "benign_command_control",
+      "expected": {
+        "argument_digest_present": [
+          true,
+          true
+        ],
+        "argument_displays": [
+          "--output=public-02",
+          "ordinary-value"
+        ],
+        "executable_display": "tool",
+        "path_display": null,
+        "redacted_arguments": 0,
+        "redacted_path_components": 0
+      },
+      "id": "benign-command-02",
+      "input": {
+        "arguments": [
+          "--output=public-02",
+          "ordinary-value"
+        ],
+        "custom_values": [],
+        "executable": "tool",
+        "kind": "command",
+        "path": null
+      },
+      "secrets": [],
+      "supported_pattern": false
+    },
+    {
+      "category": "benign_command_control",
+      "expected": {
+        "argument_digest_present": [
+          true,
+          true
+        ],
+        "argument_displays": [
+          "--target=public-03",
+          "ordinary-value"
+        ],
+        "executable_display": "tool",
+        "path_display": null,
+        "redacted_arguments": 0,
+        "redacted_path_components": 0
+      },
+      "id": "benign-command-03",
+      "input": {
+        "arguments": [
+          "--target=public-03",
+          "ordinary-value"
+        ],
+        "custom_values": [],
+        "executable": "tool",
+        "kind": "command",
+        "path": null
+      },
+      "secrets": [],
+      "supported_pattern": false
+    },
+    {
+      "category": "benign_command_control",
+      "expected": {
+        "argument_digest_present": [
+          true,
+          true
+        ],
+        "argument_displays": [
+          "--mode=public-04",
+          "ordinary-value"
+        ],
+        "executable_display": "tool",
+        "path_display": null,
+        "redacted_arguments": 0,
+        "redacted_path_components": 0
+      },
+      "id": "benign-command-04",
+      "input": {
+        "arguments": [
+          "--mode=public-04",
+          "ordinary-value"
+        ],
+        "custom_values": [],
+        "executable": "tool",
+        "kind": "command",
+        "path": null
+      },
+      "secrets": [],
+      "supported_pattern": false
+    },
+    {
+      "category": "benign_command_control",
+      "expected": {
+        "argument_digest_present": [
+          true,
+          true
+        ],
+        "argument_displays": [
+          "--format=public-05",
+          "ordinary-value"
+        ],
+        "executable_display": "tool",
+        "path_display": null,
+        "redacted_arguments": 0,
+        "redacted_path_components": 0
+      },
+      "id": "benign-command-05",
+      "input": {
+        "arguments": [
+          "--format=public-05",
+          "ordinary-value"
+        ],
+        "custom_values": [],
+        "executable": "tool",
+        "kind": "command",
+        "path": null
+      },
+      "secrets": [],
+      "supported_pattern": false
+    },
+    {
+      "category": "benign_command_control",
+      "expected": {
+        "argument_digest_present": [
+          true,
+          true
+        ],
+        "argument_displays": [
+          "--color=public-06",
+          "ordinary-value"
+        ],
+        "executable_display": "tool",
+        "path_display": null,
+        "redacted_arguments": 0,
+        "redacted_path_components": 0
+      },
+      "id": "benign-command-06",
+      "input": {
+        "arguments": [
+          "--color=public-06",
+          "ordinary-value"
+        ],
+        "custom_values": [],
+        "executable": "tool",
+        "kind": "command",
+        "path": null
+      },
+      "secrets": [],
+      "supported_pattern": false
+    },
+    {
+      "category": "benign_command_control",
+      "expected": {
+        "argument_digest_present": [
+          true,
+          true
+        ],
+        "argument_displays": [
+          "--jobs=public-07",
+          "ordinary-value"
+        ],
+        "executable_display": "tool",
+        "path_display": null,
+        "redacted_arguments": 0,
+        "redacted_path_components": 0
+      },
+      "id": "benign-command-07",
+      "input": {
+        "arguments": [
+          "--jobs=public-07",
+          "ordinary-value"
+        ],
+        "custom_values": [],
+        "executable": "tool",
+        "kind": "command",
+        "path": null
+      },
+      "secrets": [],
+      "supported_pattern": false
+    },
+    {
+      "category": "benign_command_control",
+      "expected": {
+        "argument_digest_present": [
+          true,
+          true
+        ],
+        "argument_displays": [
+          "--cache=public-08",
+          "ordinary-value"
+        ],
+        "executable_display": "tool",
+        "path_display": null,
+        "redacted_arguments": 0,
+        "redacted_path_components": 0
+      },
+      "id": "benign-command-08",
+      "input": {
+        "arguments": [
+          "--cache=public-08",
+          "ordinary-value"
+        ],
+        "custom_values": [],
+        "executable": "tool",
+        "kind": "command",
+        "path": null
+      },
+      "secrets": [],
+      "supported_pattern": false
+    },
+    {
+      "category": "benign_command_control",
+      "expected": {
+        "argument_digest_present": [
+          true,
+          true
+        ],
+        "argument_displays": [
+          "--verbose=public-09",
+          "ordinary-value"
+        ],
+        "executable_display": "tool",
+        "path_display": null,
+        "redacted_arguments": 0,
+        "redacted_path_components": 0
+      },
+      "id": "benign-command-09",
+      "input": {
+        "arguments": [
+          "--verbose=public-09",
+          "ordinary-value"
+        ],
+        "custom_values": [],
+        "executable": "tool",
+        "kind": "command",
+        "path": null
+      },
+      "secrets": [],
+      "supported_pattern": false
+    },
+    {
+      "category": "benign_command_control",
+      "expected": {
+        "argument_digest_present": [
+          true,
+          true
+        ],
+        "argument_displays": [
+          "--retry=public-10",
+          "ordinary-value"
+        ],
+        "executable_display": "tool",
+        "path_display": null,
+        "redacted_arguments": 0,
+        "redacted_path_components": 0
+      },
+      "id": "benign-command-10",
+      "input": {
+        "arguments": [
+          "--retry=public-10",
+          "ordinary-value"
+        ],
+        "custom_values": [],
+        "executable": "tool",
+        "kind": "command",
+        "path": null
+      },
+      "secrets": [],
+      "supported_pattern": false
+    },
+    {
+      "category": "benign_command_control",
+      "expected": {
+        "argument_digest_present": [
+          true,
+          true
+        ],
+        "argument_displays": [
+          "--endpoint=public-11",
+          "ordinary-value"
+        ],
+        "executable_display": "tool",
+        "path_display": null,
+        "redacted_arguments": 0,
+        "redacted_path_components": 0
+      },
+      "id": "benign-command-11",
+      "input": {
+        "arguments": [
+          "--endpoint=public-11",
+          "ordinary-value"
+        ],
+        "custom_values": [],
+        "executable": "tool",
+        "kind": "command",
+        "path": null
+      },
+      "secrets": [],
+      "supported_pattern": false
+    },
+    {
+      "category": "benign_path_control",
+      "expected": {
+        "argument_digest_present": [],
+        "argument_displays": [],
+        "executable_display": null,
+        "path_display": "public/environment/file-00.txt",
+        "redacted_arguments": 0,
+        "redacted_path_components": 0
+      },
+      "id": "benign-path-00",
+      "input": {
+        "arguments": [],
+        "custom_values": [],
+        "executable": "",
+        "kind": "path",
+        "path": "public/environment/file-00.txt"
+      },
+      "secrets": [],
+      "supported_pattern": false
+    },
+    {
+      "category": "benign_path_control",
+      "expected": {
+        "argument_digest_present": [],
+        "argument_displays": [],
+        "executable_display": null,
+        "path_display": "public/public-key/file-01.txt",
+        "redacted_arguments": 0,
+        "redacted_path_components": 0
+      },
+      "id": "benign-path-01",
+      "input": {
+        "arguments": [],
+        "custom_values": [],
+        "executable": "",
+        "kind": "path",
+        "path": "public/public-key/file-01.txt"
+      },
+      "secrets": [],
+      "supported_pattern": false
+    },
+    {
+      "category": "benign_path_control",
+      "expected": {
+        "argument_digest_present": [],
+        "argument_displays": [],
+        "executable_display": null,
+        "path_display": "public/authentication/file-02.txt",
+        "redacted_arguments": 0,
+        "redacted_path_components": 0
+      },
+      "id": "benign-path-02",
+      "input": {
+        "arguments": [],
+        "custom_values": [],
+        "executable": "",
+        "kind": "path",
+        "path": "public/authentication/file-02.txt"
+      },
+      "secrets": [],
+      "supported_pattern": false
+    },
+    {
+      "category": "benign_path_control",
+      "expected": {
+        "argument_digest_present": [],
+        "argument_displays": [],
+        "executable_display": null,
+        "path_display": "public/session/file-03.txt",
+        "redacted_arguments": 0,
+        "redacted_path_components": 0
+      },
+      "id": "benign-path-03",
+      "input": {
+        "arguments": [],
+        "custom_values": [],
+        "executable": "",
+        "kind": "path",
+        "path": "public/session/file-03.txt"
+      },
+      "secrets": [],
+      "supported_pattern": false
+    },
+    {
+      "category": "benign_path_control",
+      "expected": {
+        "argument_digest_present": [],
+        "argument_displays": [],
+        "executable_display": null,
+        "path_display": "public/configuration/file-04.txt",
+        "redacted_arguments": 0,
+        "redacted_path_components": 0
+      },
+      "id": "benign-path-04",
+      "input": {
+        "arguments": [],
+        "custom_values": [],
+        "executable": "",
+        "kind": "path",
+        "path": "public/configuration/file-04.txt"
+      },
+      "secrets": [],
+      "supported_pattern": false
+    },
+    {
+      "category": "benign_path_control",
+      "expected": {
+        "argument_digest_present": [],
+        "argument_displays": [],
+        "executable_display": null,
+        "path_display": "public/certificate.crt/file-05.txt",
+        "redacted_arguments": 0,
+        "redacted_path_components": 0
+      },
+      "id": "benign-path-05",
+      "input": {
+        "arguments": [],
+        "custom_values": [],
+        "executable": "",
+        "kind": "path",
+        "path": "public/certificate.crt/file-05.txt"
+      },
+      "secrets": [],
+      "supported_pattern": false
+    },
+    {
+      "category": "benign_path_control",
+      "expected": {
+        "argument_digest_present": [],
+        "argument_displays": [],
+        "executable_display": null,
+        "path_display": "public/readme/file-06.txt",
+        "redacted_arguments": 0,
+        "redacted_path_components": 0
+      },
+      "id": "benign-path-06",
+      "input": {
+        "arguments": [],
+        "custom_values": [],
+        "executable": "",
+        "kind": "path",
+        "path": "public/readme/file-06.txt"
+      },
+      "secrets": [],
+      "supported_pattern": false
+    },
+    {
+      "category": "benign_path_control",
+      "expected": {
+        "argument_digest_present": [],
+        "argument_displays": [],
+        "executable_display": null,
+        "path_display": "public/ordinary/file-07.txt",
+        "redacted_arguments": 0,
+        "redacted_path_components": 0
+      },
+      "id": "benign-path-07",
+      "input": {
+        "arguments": [],
+        "custom_values": [],
+        "executable": "",
+        "kind": "path",
+        "path": "public/ordinary/file-07.txt"
+      },
+      "secrets": [],
+      "supported_pattern": false
+    },
+    {
+      "category": "benign_path_control",
+      "expected": {
+        "argument_digest_present": [],
+        "argument_displays": [],
+        "executable_display": null,
+        "path_display": "public/release/file-08.txt",
+        "redacted_arguments": 0,
+        "redacted_path_components": 0
+      },
+      "id": "benign-path-08",
+      "input": {
+        "arguments": [],
+        "custom_values": [],
+        "executable": "",
+        "kind": "path",
+        "path": "public/release/file-08.txt"
+      },
+      "secrets": [],
+      "supported_pattern": false
+    },
+    {
+      "category": "benign_path_control",
+      "expected": {
+        "argument_digest_present": [],
+        "argument_displays": [],
+        "executable_display": null,
+        "path_display": "public/metadata/file-09.txt",
+        "redacted_arguments": 0,
+        "redacted_path_components": 0
+      },
+      "id": "benign-path-09",
+      "input": {
+        "arguments": [],
+        "custom_values": [],
+        "executable": "",
+        "kind": "path",
+        "path": "public/metadata/file-09.txt"
+      },
+      "secrets": [],
+      "supported_pattern": false
+    },
+    {
+      "category": "benign_path_control",
+      "expected": {
+        "argument_digest_present": [],
+        "argument_displays": [],
+        "executable_display": null,
+        "path_display": "public/manifest/file-10.txt",
+        "redacted_arguments": 0,
+        "redacted_path_components": 0
+      },
+      "id": "benign-path-10",
+      "input": {
+        "arguments": [],
+        "custom_values": [],
+        "executable": "",
+        "kind": "path",
+        "path": "public/manifest/file-10.txt"
+      },
+      "secrets": [],
+      "supported_pattern": false
+    },
+    {
+      "category": "benign_path_control",
+      "expected": {
+        "argument_digest_present": [],
+        "argument_displays": [],
+        "executable_display": null,
+        "path_display": "public/artifact/file-11.txt",
+        "redacted_arguments": 0,
+        "redacted_path_components": 0
+      },
+      "id": "benign-path-11",
+      "input": {
+        "arguments": [],
+        "custom_values": [],
+        "executable": "",
+        "kind": "path",
+        "path": "public/artifact/file-11.txt"
+      },
+      "secrets": [],
+      "supported_pattern": false
+    }
+  ],
+  "labeling_methodology": "Expected displays and digest-retention decisions are defined by explicit tables for CmdTrail's documented supported patterns; the generator does not invoke or inspect CmdTrail.",
+  "license": "MIT",
+  "schema_version": "cmdtrail.redaction-corpus.v1",
+  "unsupported_scope": "Arbitrary positional secrets are not expected to be detected unless supplied as exact custom values."
+}

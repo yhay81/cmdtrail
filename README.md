@@ -156,6 +156,11 @@ Opaque path and executable SHA-256 handles can also be susceptible to dictionary
 guessing. Treat receipts as sensitive operational metadata and review
 [the safety model](docs/safety-model.md) before sharing them.
 
+The versioned [redaction corpus](tests/fixtures/redaction/README.md) publishes
+128 labeled supported-pattern and benign-control cases. CI independently
+scores exact display and digest-retention behavior and requires zero supported
+secret escapes.
+
 ## Integrity is not authenticity
 
 `cmdtrail verify` checks:
