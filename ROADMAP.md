@@ -78,6 +78,13 @@ decision.
 - An external security and privacy review of receipt metadata, redaction,
   symlink handling, races, and authenticity boundaries is resolved.
 
+Current redaction evidence publishes 128 deterministic labeled cases covering
+separated and joined secret flags, URL user information, queries, fragments,
+sensitive path components, caller-supplied exact values, and benign controls.
+The independent scorer requires exact displays and digest retention, zero
+supported secret escapes, and zero benign-control mismatches on every CI
+operating system.
+
 ### Performance and bounds
 
 - Default portable snapshots of the published 10k-file fixture add no more

@@ -2,6 +2,9 @@ use crate::integrity::sha256_bytes;
 use std::ffi::{OsStr, OsString};
 use std::path::Path;
 
+#[cfg(test)]
+mod corpus_tests;
+
 #[derive(Debug, Clone)]
 pub struct Redactor {
     custom_values: Vec<String>,

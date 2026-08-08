@@ -30,6 +30,10 @@ jobs:
             -s scripts/tests -p 'test_verify_v1_evidence.py'
           python3 scripts/verify_v1_evidence.py \
             .github/v1-evidence.json --check-structure
+      - name: Redaction corpus
+        run: |
+          python3 tests/fixtures/redaction/v0.1/generate_corpus.py --check
+          cargo test --locked redact::corpus_tests::published_redaction_metrics_are_reproducible
       - name: Benchmark harness
         shell: bash
         run: |
