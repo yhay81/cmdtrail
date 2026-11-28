@@ -36,9 +36,9 @@ cargo audit
 cargo package --locked --allow-dirty
 ```
 
-Receipt parsing and event-chain verification are continuously fuzzed. See
-[FUZZING.md](FUZZING.md) for the reproducible local command and crash-handling
-rules.
+Pull requests check receipt parsing and event-chain verification against the
+compatibility fixtures. See [FUZZING.md](FUZZING.md) for optional fuzzing,
+corpus maintenance, and crash handling.
 
 ## Evidence requirements
 
