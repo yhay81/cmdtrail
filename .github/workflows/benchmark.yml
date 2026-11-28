@@ -43,7 +43,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        shard: [0, 1, 2, 3, 4]
+        shard: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -58,12 +58,12 @@ jobs:
           echo "BENCHMARK_BINARY=$RUNNER_TEMP/benchmark-tool/cmdtrail" >> "$GITHUB_ENV"
       - name: Warm benchmark fixture and code paths
         run: benchmarks/run.sh /tmp/cmdtrail-benchmark-warmup.json
-      - name: Capture four raw samples
+      - name: Capture two raw samples
         env:
           SHARD: ${{ matrix.shard }}
         run: |
           mkdir -p benchmark-samples
-          for sample in $(seq "$((SHARD * 4 + 1))" "$((SHARD * 4 + 4))"); do
+          for sample in $(seq "$((SHARD * 2 + 1))" "$((SHARD * 2 + 2))"); do
             printf -v path 'benchmark-samples/sample-%02d.json' "$sample"
             benchmarks/run.sh "$path"
           done
