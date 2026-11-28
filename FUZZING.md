@@ -22,8 +22,24 @@ The local run spends five minutes fuzzing after compilation. Omit
 receipt compatibility corpus against the current code. The full
 AddressSanitizer fuzz run is optional.
 
-The weekly ClusterFuzzLite batch on `main` is configured with a 15-minute
-fuzzing budget and publishes findings to GitHub code scanning when it completes.
+## Manual maintenance
+
+Use the same nightly toolchain and seeded corpus above. From the repository
+root, run the command for the task you need:
+
+| Task | Local command |
+| --- | --- |
+| Build the fuzzer | `cargo +nightly fuzz build receipt_integrity` |
+| Fuzz for 15 minutes after compilation | `cargo +nightly fuzz run receipt_integrity -- -max_total_time=900` |
+| Minimize the local corpus | `cargo +nightly fuzz cmin receipt_integrity` |
+
+To request the GitHub artifact or code-scanning integration, open **Actions**,
+select **ClusterFuzzLite comparison build**, **ClusterFuzzLite batch fuzzing**,
+or **ClusterFuzzLite corpus pruning**, and choose **Run workflow** on `main`.
+These workflows run only on request. The hosted runner has a one-minute job
+limit, including setup. Use the local commands for the full run. A local run
+keeps its corpus on disk; the GitHub workflows manage Actions artifacts and
+the batch workflow can upload SARIF when it completes.
 
 Receipts can contain commands, paths, and observed filesystem metadata. Keep
 minimized crashes private until reviewed, add a deterministic regression test,
