@@ -18,8 +18,7 @@ Every measurement captures complete default pre/post hashing around
 fixtures, and outputs are synthetic project artifacts covered by the
 repository's MIT license.
 
-Each sample performs untimed build and tree generation. The workflow discards
-one warm-up and captures 20 samples across the three sizes. It records GNU
+Each sample performs untimed build and tree generation. Ten Ubuntu runners each discard one warm-up and capture two sequential samples, for 20 measured samples in total. It records GNU
 `time` wall time and peak resident memory, CmdTrail's internal duration and
 snapshot statistics, output and receipt bytes, fixture content digests,
 offline receipt verification, runner identity, and the exact CmdTrail commit.
